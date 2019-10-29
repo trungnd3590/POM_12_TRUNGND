@@ -2,7 +2,7 @@
 <suite parallel="false" name="Nop Commerce">
   <test name="Run on FIREFOX browser">
     <classes>
-      <class name="com.nopcommerce.account.Level_01_Step_By_Step"/>
+      <class name="com.nopcommerce.account.Level_02_AbstractPage"/>
     </classes>
   </test> 
 </suite> 
