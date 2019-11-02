@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import commons.AbstractPage;
 import pageUIs.LoginPageUI;
 
-public class LoginPageObject extends AbstractPage{
+public class LoginPageObject extends AbstractPage {
 
 	public LoginPageObject(WebDriver driver) {
 		super(driver);
@@ -20,7 +20,7 @@ public class LoginPageObject extends AbstractPage{
 	public void inputToPasswordTextbox(String passwordVal) {
 		waitForElementVisible(LoginPageUI.PASSWORD_TEXTBOX);
 		sendkeysToElement(LoginPageUI.PASSWORD_TEXTBOX, passwordVal);
-		
+
 	}
 
 	public void clickToLoginButton() {

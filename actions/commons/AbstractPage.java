@@ -17,7 +17,7 @@ public class AbstractPage {
 
 	Select select;
 	Actions actions;
-	WebDriver driver;
+	protected WebDriver driver;
 	WebElement element;
 	long shortTimeOut = 5;
 	long longTimeOut = 30;
@@ -27,6 +27,7 @@ public class AbstractPage {
 
 	public AbstractPage(WebDriver driver) {
 		this.driver = driver;
+		System.out.println("Drive ID for Abstract : "+driver);
 		jsExecutor = (JavascriptExecutor) driver;
 		waitExplicit = new WebDriverWait(driver, longTimeOut);
 		actions = new Actions(driver);
@@ -353,11 +354,11 @@ public class AbstractPage {
 	}
 
 	public void waitForElementVisible(By by) {
-		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(by));
+		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
 	public void waitForElementInvisible(By by) {
-		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(by));
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(by));
 	}
 
 	public void waitForElementPresense(By by) {

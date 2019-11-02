@@ -44,25 +44,25 @@ public class RegisterPageObject extends AbstractPage {
 	public void inputToEmailTextbox(String emailVal) {
 		waitForElementVisible(RegisterPageUI.EMAIL_TEXTBOX);
 		sendkeysToElement(RegisterPageUI.EMAIL_TEXTBOX, emailVal);
-		
+
 	}
 
 	public void inputToCompanynameTextbox(String companyNameVal) {
 		waitForElementVisible(RegisterPageUI.COMPANYNAME_TEXTBOX);
 		sendkeysToElement(RegisterPageUI.COMPANYNAME_TEXTBOX, companyNameVal);
-		
+
 	}
 
 	public void inputToPasswordTextbox(String passwordVal) {
 		waitForElementVisible(RegisterPageUI.PASSWORD_TEXTBOX);
 		sendkeysToElement(RegisterPageUI.PASSWORD_TEXTBOX, passwordVal);
-		
+
 	}
 
 	public void inputToConfimPasswordTextbox(String confirmPasswordVal) {
 		waitForElementVisible(RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX);
 		sendkeysToElement(RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX, confirmPasswordVal);
-		
+
 	}
 
 	public void clickToRegisterButton() {
