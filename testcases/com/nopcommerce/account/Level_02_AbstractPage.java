@@ -16,7 +16,6 @@ import commons.AbstractPage;
 public class Level_02_AbstractPage {
 
 	WebDriver driver;
-	Select select;
 	String regFirstName, regLastName, regDateOfBirth, regDateOfMonth, regDateOfYear, regEmail, regCompanyName,
 			regPassword;
 	AbstractPage absPage;
