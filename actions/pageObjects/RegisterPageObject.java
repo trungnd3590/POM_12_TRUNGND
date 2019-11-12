@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
+import commons.PageGeneratorManager;
 import pageUIs.RegisterPageUI;
 
 public class RegisterPageObject extends AbstractPage {
@@ -70,9 +71,10 @@ public class RegisterPageObject extends AbstractPage {
 		clickToElement(RegisterPageUI.REGISTER_BUTTON);
 	}
 
-	public void clickToLogoutLink() {
+	public HomePageObject clickToLogoutLink() {
 		waitForElementVisible(RegisterPageUI.LOGOUT_LINK);
 		clickToElement(RegisterPageUI.LOGOUT_LINK);
+		return PageGeneratorManager.getHomePage(driver);
 	}
 
 	public boolean isSuccessMessageDisplayed() {

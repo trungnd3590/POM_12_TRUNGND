@@ -3,13 +3,13 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
+import commons.PageGeneratorManager;
 import pageUIs.LoginPageUI;
 
 public class LoginPageObject extends AbstractPage {
-
+	
 	public LoginPageObject(WebDriver driver) {
 		super(driver);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void inputToEmailTextbox(String emaiVal) {
@@ -23,9 +23,10 @@ public class LoginPageObject extends AbstractPage {
 
 	}
 
-	public void clickToLoginButton() {
+	public HomePageObject clickToLoginButton() {
 		waitForElementVisible(LoginPageUI.LOGIN_BUTTON);
 		clickToElement(LoginPageUI.LOGIN_BUTTON);
+		return PageGeneratorManager.getHomePage(driver);
 	}
 
 }
