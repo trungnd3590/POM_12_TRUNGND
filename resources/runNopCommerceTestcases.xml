@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite parallel="false" name="Nop Commerce">
-  <test name="Run on FIREFOX browser">
-    <classes>
-      <class name="com.nopcommerce.account.Level_04_Page_Generator_Manager"/>
-    </classes>
-  </test> 
+<suite name="Nop Commerce" parallel="tests" thread-count="1">
+
+	<test name="Run on FIREFOX UI">
+		<parameter name="browser" value="firefox_ui" />
+		<classes>
+			<class
+				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+		</classes>
+	</test>
+
+	<test name="Run on FIREFOX HEADLESS">
+		<parameter name="browser" value="firefox_headless" />
+		<classes>
+			<class
+				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+		</classes>
+	</test>
+
+	<test name="Run on CHROME UI">
+		<parameter name="browser" value="chrome_ui" />
+		<classes>
+			<class
+				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+		</classes>
+	</test>
+
+	<test name="Run on CHROME HEADLESS">
+		<parameter name="browser" value="chrome_headless" />
+		<classes>
+			<class
+				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+		</classes>
+	</test>
+
 </suite> 
