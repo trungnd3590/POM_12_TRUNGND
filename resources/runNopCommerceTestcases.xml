@@ -5,7 +5,7 @@
 		<parameter name="browser" value="firefox_ui" />
 		<classes>
 			<class
-				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+				name="com.nopcommerce.account.Level_06_Factory_Pattern" />
 		</classes>
 	</test>
 
@@ -13,7 +13,7 @@
 		<parameter name="browser" value="firefox_headless" />
 		<classes>
 			<class
-				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+				name="com.nopcommerce.account.Level_06_Factory_Pattern" />
 		</classes>
 	</test>
 
@@ -21,7 +21,7 @@
 		<parameter name="browser" value="chrome_ui" />
 		<classes>
 			<class
-				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+				name="com.nopcommerce.account.Level_06_Factory_Pattern" />
 		</classes>
 	</test>
 
@@ -29,7 +29,7 @@
 		<parameter name="browser" value="chrome_headless" />
 		<classes>
 			<class
-				name="com.nopcommerce.account.Level_05_Multi_Browser_Pallarel_Factory_Pattern" />
+				name="com.nopcommerce.account.Level_06_Factory_Pattern" />
 		</classes>
 	</test>
 

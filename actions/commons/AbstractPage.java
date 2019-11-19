@@ -27,7 +27,6 @@ public class AbstractPage {
 
 	public AbstractPage(WebDriver driver) {
 		this.driver = driver;
-		System.out.println("Drive ID for Abstract : "+driver);
 		jsExecutor = (JavascriptExecutor) driver;
 		waitExplicit = new WebDriverWait(driver, longTimeOut);
 		actions = new Actions(driver);
