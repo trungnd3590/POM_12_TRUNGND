@@ -1,9 +1,11 @@
-package com.nopcommerce.account;
+package com.nopcommerce.templates;
 
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
 import commons.PageGeneratorManager;
+import driverFactoryPattern.DriverManager;
+import driverFactoryPattern.DriverManagerFactory;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
@@ -19,10 +21,12 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Level_05_Multi_Browser_Pallarel_Factory_Pattern extends AbstractTest {
+public class Level_06_Factory_Pattern extends AbstractTest {
 	private WebDriver driver;
 	String regFirstName, regLastName, regDateOfBirth, regDateOfMonth, regDateOfYear, regEmail, regCompanyName,
 			regPassword;
+	
+	private DriverManager driverManager;
 	private HomePageObject homePage;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;
@@ -31,7 +35,8 @@ public class Level_05_Multi_Browser_Pallarel_Factory_Pattern extends AbstractTes
 	@BeforeClass
 	public void beforeClass(String browserName) {
 
-		driver = getMultiBrowserDriver(browserName);
+		driverManager = DriverManagerFactory.getBrowserDriver(browserName);
+		driver = driverManager.getDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 

@@ -1,4 +1,4 @@
-package com.nopcommerce.account;
+package com.nopcommerce.templates;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
