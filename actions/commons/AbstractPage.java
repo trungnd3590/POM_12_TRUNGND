@@ -1,6 +1,7 @@
 package commons;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.By;
@@ -129,7 +130,6 @@ public class AbstractPage {
 		try {
 			Thread.sleep(numberInSecond * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -367,4 +367,10 @@ public class AbstractPage {
 	public void waitForElementClickable(By by) {
 		waitExplicit.until(ExpectedConditions.elementToBeClickable(by));
 	}
+
+	public int randomNumber() {
+		Random random = new Random();
+		return random.nextInt(999999);
+	}
+
 }

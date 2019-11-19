@@ -80,5 +80,36 @@ public class RegisterPageObject extends AbstractPage {
 	public boolean isSuccessMessageDisplayed() {
 		return elementIsDisplayed(RegisterPageUI.REGISTER_SUCCESS_MESSAGE);
 	}
+	
+	public String getFirstNameErrorMessage() {
+		return getTextElement(RegisterPageUI.FIRSTNAME_TEXTBOX_MESSAGE);
+	}
+	
+	public String getLastNameErrorMessage() {
+		return getTextElement(RegisterPageUI.LASTNAME_TEXTBOX_MESSAGE);
+	}
+	
+	public String getEmailErrorMessage() {
+		return getTextElement(RegisterPageUI.EMAIL_TEXTBOX_MESSAGE);
+	}
+	
+	public String getPasswordErrorMessage() {
+		return getTextElement(RegisterPageUI.PASSWORD_TEXTBOX_MESSAGE);
+	}
+	
+	public String getConfirmPasswordErrorMessage() {
+		return getTextElement(RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX_MESSAGE);
+	}
+	
+	public String getExistEmailErrorMessage() {
+		return getTextElement(RegisterPageUI.EXIST_EMAIL_MESSAGE);
+	}
+	
+	public String getPasswordRulesErrorMessage() {
+		return getTextElement(RegisterPageUI.PASSWORD_TEXTBOX_RULES_MESSAGE);
+	}
 
+	public String getPasswordLessThan6CharacterErrorMessage() {
+		return getTextElement(RegisterPageUI.PASSWORD_LESS_THAN_6_CHARACTER_MESSAGE);
+	}
 }

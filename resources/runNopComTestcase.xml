@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Nop Commerce" parallel="tests" thread-count="1">
+
+	<test name="Run on FIREFOX UI">
+		<parameter name="browser" value="firefox_ui" />
+		<packages>
+            <package name="com.nopcommerce.frontend"/>
+        </packages>
+	</test>
+<!-- 
+	<test name="Run on FIREFOX HEADLESS">
+		<parameter name="browser" value="firefox_headless" />
+			<packages>
+            <package name="com.nopcommerce.frontend"/>
+        </packages>
+	</test>
+
+	<test name="Run on CHROME UI">
+		<parameter name="browser" value="chrome_ui" />
+			<packages>
+            <package name="com.nopcommerce.frontend"/>
+        </packages>
+	</test>
+
+	<test name="Run on CHROME HEADLESS">
+		<parameter name="browser" value="chrome_headless" />
+			<packages>
+            <package name="com.nopcommerce.frontend"/>
+        </packages>
+	</test> -->
+
+</suite> 
