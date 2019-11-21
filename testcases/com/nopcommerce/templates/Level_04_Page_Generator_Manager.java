@@ -52,7 +52,7 @@ public class Level_04_Page_Generator_Manager {
 
 		homePage = PageGeneratorManager.getHomePage(driver);
 		
-		registerPage = homePage.clickToRegisterLink();
+		registerPage = homePage.openRegisterPage();
 		
 		registerPage.clickToMaleRadioButton();
 		registerPage.inputToFirstnameTextbox(regFirstName);
@@ -74,7 +74,7 @@ public class Level_04_Page_Generator_Manager {
 	@Test
 	public void TC02_LoginToSystem() {
 
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 
 		loginPage.inputToEmailTextbox(regEmail);
 		loginPage.inputToPasswordTextbox(regPassword);

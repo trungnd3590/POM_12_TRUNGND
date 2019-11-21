@@ -3,9 +3,10 @@
 
 	<test name="Run on FIREFOX UI">
 		<parameter name="browser" value="firefox_ui" />
-		<packages>
-            <package name="com.nopcommerce.frontend"/>
-        </packages>
+		<classes>
+			<class
+				name="com.nopcommerce.frontend.Nop_Com_My_Account" />
+		</classes>
 	</test>
 <!-- 
 	<test name="Run on FIREFOX HEADLESS">

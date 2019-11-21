@@ -3,8 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
-import commons.PageGeneratorManager;
-import pageUIs.HomePageUI;
+import pageUIs.AbstactPageUI;
 
 public class HomePageObject extends AbstractPage {
 	
@@ -12,21 +11,9 @@ public class HomePageObject extends AbstractPage {
 		super(driver);
 	}
 
-	public RegisterPageObject clickToRegisterLink() {
-		waitForElementVisible(HomePageUI.REGISTER_LINK);
-		clickToElement(HomePageUI.REGISTER_LINK);
-		return PageGeneratorManager.getRegisterPage(driver);
-	}
-
-	public LoginPageObject clickToLoginLink() {
-		waitForElementVisible(HomePageUI.LOGIN_LINK);
-		clickToElement(HomePageUI.LOGIN_LINK);
-		return PageGeneratorManager.getLoginPage(driver);
-	}
-
 	public boolean isMyAccountLinkDisplayed() {
-		waitForElementVisible(HomePageUI.MY_ACCOUNT_LINK);
-		return elementIsDisplayed(HomePageUI.MY_ACCOUNT_LINK);
+		waitForElementVisible(AbstactPageUI.HEADER_MY_ACCOUNT_LINK);
+		return elementIsDisplayed(AbstactPageUI.HEADER_MY_ACCOUNT_LINK);
 	}
 
 }

@@ -56,7 +56,7 @@ public class Nop_Com_Register extends AbstractTest {
 
 		homePage = PageGeneratorManager.getHomePage(driver);
 
-		registerPage = homePage.clickToRegisterLink();
+		registerPage = homePage.openRegisterPage();
 		registerPage.clickToMaleRadioButton();
 		registerPage.inputToFirstnameTextbox(firstNameVal);
 		registerPage.inputToLastnameTextbox(lastNameVal);

@@ -58,7 +58,7 @@ public class Level_06_Factory_Pattern extends AbstractTest {
 
 		homePage = PageGeneratorManager.getHomePage(driver);
 
-		registerPage = homePage.clickToRegisterLink();
+		registerPage = homePage.openRegisterPage();
 
 		registerPage.clickToMaleRadioButton();
 		registerPage.inputToFirstnameTextbox(regFirstName);
@@ -80,7 +80,7 @@ public class Level_06_Factory_Pattern extends AbstractTest {
 	@Test
 	public void TC02_LoginToSystem() {
 
-		loginPage = homePage.clickToLoginLink();
+		loginPage = homePage.openLoginPage();
 
 		loginPage.inputToEmailTextbox(regEmail);
 		loginPage.inputToPasswordTextbox(regPassword);

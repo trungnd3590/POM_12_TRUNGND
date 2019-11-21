@@ -23,5 +23,5 @@ public class RegisterPageUI {
 	public static final By CONFIRM_PASSWORD_TEXTBOX_MESSAGE = By.xpath("//span[@id='ConfirmPassword-error']");
 	public static final By REGISTER_BUTTON = By.xpath("//input[@id='register-button']");
 	public static final By REGISTER_SUCCESS_MESSAGE = By.xpath("//div[@class='result']");
-	public static final By LOGOUT_LINK = By.xpath("//a[@class='ico-logout']");
+	
 }

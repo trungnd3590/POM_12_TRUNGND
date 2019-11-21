@@ -14,6 +14,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.DetailPageObject;
+import pageObjects.HomePageObject;
+import pageObjects.LoginPageObject;
+import pageObjects.MyAccountPageObject;
+import pageObjects.NoteBooksPageObject;
+import pageObjects.ProductReviewPageObject;
+import pageObjects.RegisterPageObject;
+import pageUIs.AbstactPageUI;
+
 public class AbstractPage {
 
 	Select select;
@@ -355,13 +364,22 @@ public class AbstractPage {
 	public void waitForElementVisible(By by) {
 		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
+	
+	public void waitForAllElementsVisible(By by) {
+		waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+	}
 
 	public void waitForElementInvisible(By by) {
 		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(by));
 	}
+	
 
 	public void waitForElementPresense(By by) {
 		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(by));
+	}
+	
+	public void waitForAllElementsPresense(By by) {
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
 	}
 
 	public void waitForElementClickable(By by) {
@@ -372,5 +390,68 @@ public class AbstractPage {
 		Random random = new Random();
 		return random.nextInt(999999);
 	}
+	
+	public boolean compareStringFromElementText(By by,String expTextVal) {
+		
+		boolean result = false;
+		elements = driver.findElements(by);
+		for (WebElement element : elements) {
+			if(element.getText().contains(expTextVal)) {
+				result = true ;
+			} else {
+				result = false;
+			}
+		}
+		
+		return result;
+	}
 
+	public RegisterPageObject openRegisterPage() {
+		waitForElementVisible(AbstactPageUI.HEADER_REGISTER_LINK);
+		clickToElement(AbstactPageUI.HEADER_REGISTER_LINK);
+		return PageGeneratorManager.getRegisterPage(driver);
+	}
+
+	public LoginPageObject openLoginPage() {
+		waitForElementVisible(AbstactPageUI.HEADER_LOGIN_LINK);
+		clickToElement(AbstactPageUI.HEADER_LOGIN_LINK);
+		return PageGeneratorManager.getLoginPage(driver);
+	}
+	
+	public MyAccountPageObject openMyAccountPage() {
+		waitForElementVisible(AbstactPageUI.HEADER_MY_ACCOUNT_LINK);
+		clickToElement(AbstactPageUI.HEADER_MY_ACCOUNT_LINK);
+		return PageGeneratorManager.getMyAccountPage(driver);
+	}
+	
+	public HomePageObject clickToLoginButton() {
+		waitForElementVisible(AbstactPageUI.HEADER_LOGIN_BUTTON);
+		clickToElement(AbstactPageUI.HEADER_LOGIN_BUTTON);
+		return PageGeneratorManager.getHomePage(driver);
+	}
+	
+	public HomePageObject clickToLogoutLink() {
+		waitForElementVisible(AbstactPageUI.HEADER_LOGOUT_LINK);
+		clickToElement(AbstactPageUI.HEADER_LOGOUT_LINK);
+		return PageGeneratorManager.getHomePage(driver);
+	}
+	
+	public NoteBooksPageObject openNoteBooksPage() {
+		hoverMouseToElement(AbstactPageUI.MENUBAR_COMPUTER_MENU);
+		waitForElementVisible(AbstactPageUI.MENUBAR_NOTEBOOKS_LINK);
+		clickToElement(AbstactPageUI.MENUBAR_NOTEBOOKS_LINK);
+		return PageGeneratorManager.getNoteBooksPage(driver);
+	}
+	
+	public DetailPageObject openDetailPage() {
+		waitForElementVisible(AbstactPageUI.NOTERBOOKS_ASUS_N551_PRODUCT);
+		clickToElement(AbstactPageUI.NOTERBOOKS_ASUS_N551_PRODUCT);
+		return PageGeneratorManager.getDetailPage(driver);
+	}
+	
+	public ProductReviewPageObject openProductReviewPage() {
+		waitForElementVisible(AbstactPageUI.ADD_YOUR_REVIEW_LINK);
+		clickToElement(AbstactPageUI.ADD_YOUR_REVIEW_LINK);
+		return PageGeneratorManager.getProductReviewPage(driver);
+	}
 }

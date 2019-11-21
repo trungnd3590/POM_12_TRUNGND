@@ -49,7 +49,7 @@ public class Level_03_Page_Object_Pattern_01 {
 	@Test
 	public void TC01_RegisterToSystem() {
 
-		homePage.clickToRegisterLink();
+		homePage.openRegisterPage();
 
 		registerPage = new RegisterPageObject(driver);
 
@@ -74,7 +74,7 @@ public class Level_03_Page_Object_Pattern_01 {
 	@Test
 	public void TC02_LoginToSystem() {
 
-		homePage.clickToLoginLink();
+		homePage.openLoginPage();
 
 		loginPage = new LoginPageObject(driver);
 

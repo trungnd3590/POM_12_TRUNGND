@@ -1,9 +1,10 @@
 package pageObjects;
 
+import java.util.Random;
+
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
-import commons.PageGeneratorManager;
 import pageUIs.RegisterPageUI;
 
 public class RegisterPageObject extends AbstractPage {
@@ -71,45 +72,52 @@ public class RegisterPageObject extends AbstractPage {
 		clickToElement(RegisterPageUI.REGISTER_BUTTON);
 	}
 
-	public HomePageObject clickToLogoutLink() {
-		waitForElementVisible(RegisterPageUI.LOGOUT_LINK);
-		clickToElement(RegisterPageUI.LOGOUT_LINK);
-		return PageGeneratorManager.getHomePage(driver);
-	}
-
 	public boolean isSuccessMessageDisplayed() {
 		return elementIsDisplayed(RegisterPageUI.REGISTER_SUCCESS_MESSAGE);
 	}
 	
 	public String getFirstNameErrorMessage() {
+		waitForElementVisible(RegisterPageUI.FIRSTNAME_TEXTBOX_MESSAGE);
 		return getTextElement(RegisterPageUI.FIRSTNAME_TEXTBOX_MESSAGE);
 	}
 	
 	public String getLastNameErrorMessage() {
+		waitForElementVisible(RegisterPageUI.LASTNAME_TEXTBOX_MESSAGE);
 		return getTextElement(RegisterPageUI.LASTNAME_TEXTBOX_MESSAGE);
 	}
 	
 	public String getEmailErrorMessage() {
+		waitForElementVisible(RegisterPageUI.EMAIL_TEXTBOX_MESSAGE);
 		return getTextElement(RegisterPageUI.EMAIL_TEXTBOX_MESSAGE);
 	}
 	
 	public String getPasswordErrorMessage() {
+		waitForElementVisible(RegisterPageUI.PASSWORD_TEXTBOX_MESSAGE);
 		return getTextElement(RegisterPageUI.PASSWORD_TEXTBOX_MESSAGE);
 	}
 	
 	public String getConfirmPasswordErrorMessage() {
+		waitForElementVisible(RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX_MESSAGE);
 		return getTextElement(RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX_MESSAGE);
 	}
 	
 	public String getExistEmailErrorMessage() {
+		waitForElementVisible(RegisterPageUI.EXIST_EMAIL_MESSAGE);
 		return getTextElement(RegisterPageUI.EXIST_EMAIL_MESSAGE);
 	}
 	
 	public String getPasswordRulesErrorMessage() {
+		waitForElementVisible(RegisterPageUI.PASSWORD_TEXTBOX_RULES_MESSAGE);
 		return getTextElement(RegisterPageUI.PASSWORD_TEXTBOX_RULES_MESSAGE);
 	}
 
 	public String getPasswordLessThan6CharacterErrorMessage() {
+		waitForElementVisible(RegisterPageUI.PASSWORD_LESS_THAN_6_CHARACTER_MESSAGE);
 		return getTextElement(RegisterPageUI.PASSWORD_LESS_THAN_6_CHARACTER_MESSAGE);
+	}
+	
+	public int randomNumber() {
+		Random random = new Random();
+		return random.nextInt(999999);
 	}
 }
