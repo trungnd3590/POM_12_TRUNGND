@@ -12,14 +12,13 @@ import pageObjects.RegisterPageObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Nop_Com_Register extends AbstractTest {
+public class FE_01_Register extends AbstractTest {
 
 	private WebDriver driver;
 	String firstNameVal, lastNameVal, dateOfBirthVal, dateOfMonthVal, dateOfYearVal, emailVal, companyNameVal, passVal;
@@ -214,11 +213,6 @@ public class Nop_Com_Register extends AbstractTest {
 		registerPage.clickToRegisterButton();
 
 		Assert.assertTrue(registerPage.isSuccessMessageDisplayed());
-	}
-
-	public int randomNumber() {
-		Random random = new Random();
-		return random.nextInt(999999);
 	}
 	
 	@AfterClass

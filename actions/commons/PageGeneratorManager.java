@@ -9,6 +9,7 @@ import pageObjects.MyAccountPageObject;
 import pageObjects.NoteBooksPageObject;
 import pageObjects.ProductReviewPageObject;
 import pageObjects.RegisterPageObject;
+import pageObjects.SearchPageObject;
 
 public class PageGeneratorManager {
 
@@ -38,5 +39,9 @@ public class PageGeneratorManager {
 	
 	public static ProductReviewPageObject getProductReviewPage(WebDriver driver) {
 		return new ProductReviewPageObject(driver);
+	}
+	
+	public static SearchPageObject getSearchPage(WebDriver driver) {
+		return new SearchPageObject(driver);
 	}
 }

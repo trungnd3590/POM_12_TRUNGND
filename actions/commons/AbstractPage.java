@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -21,6 +22,7 @@ import pageObjects.MyAccountPageObject;
 import pageObjects.NoteBooksPageObject;
 import pageObjects.ProductReviewPageObject;
 import pageObjects.RegisterPageObject;
+import pageObjects.SearchPageObject;
 import pageUIs.AbstactPageUI;
 
 public class AbstractPage {
@@ -162,14 +164,14 @@ public class AbstractPage {
 		element = driver.findElement(by);
 		if (element.isSelected() == false) {
 			element.click();
-		}
+		} 
 	}
 
 	public void unCheckToCheckbox(By by) {
 		element = driver.findElement(by);
 		if (element.isSelected() == true) {
 			element.click();
-		}
+		} 
 	}
 
 	public boolean elementIsDisplayed(By by) {
@@ -395,14 +397,13 @@ public class AbstractPage {
 		
 		boolean result = false;
 		elements = driver.findElements(by);
+		ArrayList<String> allTextElement = new ArrayList<String>();
 		for (WebElement element : elements) {
-			if(element.getText().contains(expTextVal)) {
-				result = true ;
-			} else {
-				result = false;
-			}
+			allTextElement.add(element.getText());
 		}
-		
+		if(allTextElement.contains(expTextVal)) {
+			result = true;
+		}
 		return result;
 	}
 
@@ -453,5 +454,11 @@ public class AbstractPage {
 		waitForElementVisible(AbstactPageUI.ADD_YOUR_REVIEW_LINK);
 		clickToElement(AbstactPageUI.ADD_YOUR_REVIEW_LINK);
 		return PageGeneratorManager.getProductReviewPage(driver);
+	}
+	
+	public SearchPageObject openSearchPage() {
+		waitForElementVisible(AbstactPageUI.FOOTER_SEARCH_PAGE_LINK);
+		clickToElement(AbstactPageUI.FOOTER_SEARCH_PAGE_LINK);
+		return PageGeneratorManager.getSearchPage(driver);
 	}
 }

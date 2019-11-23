@@ -23,7 +23,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Nop_Com_My_Account extends AbstractTest {
+public class FE_03_MyAccount extends AbstractTest {
 
 	private WebDriver driver;
 	String firstNameVal, lastNameVal, dateOfBirthVal, dateOfMonthVal, dateOfYearVal, emailVal, companyNameVal, passVal;

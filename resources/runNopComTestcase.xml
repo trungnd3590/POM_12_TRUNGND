@@ -5,7 +5,7 @@
 		<parameter name="browser" value="firefox_ui" />
 		<classes>
 			<class
-				name="com.nopcommerce.frontend.Nop_Com_My_Account" />
+				name="com.nopcommerce.frontend.Nop_Com_Search" />
 		</classes>
 	</test>
 <!-- 

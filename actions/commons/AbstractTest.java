@@ -1,5 +1,7 @@
 package commons;
 
+import java.util.Random;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -34,6 +36,11 @@ public class AbstractTest {
 			System.out.println("Please input your browser name !");
 		}
 		return driver;
+	}
+	
+	public int randomNumber() {
+		Random random = new Random();
+		return random.nextInt(999999);
 	}
 	
 }

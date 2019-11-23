@@ -18,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Nop_Com_Login extends AbstractTest {
+public class FE_02_Login extends AbstractTest {
 
 	private WebDriver driver;
 	String emailVal,passwordVal;

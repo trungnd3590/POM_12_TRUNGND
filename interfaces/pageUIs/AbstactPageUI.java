@@ -13,4 +13,5 @@ public class AbstactPageUI {
 	public static final By MENUBAR_NOTEBOOKS_LINK = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Notebooks')]");
 	public static final By NOTERBOOKS_ASUS_N551_PRODUCT = By.xpath("//a[contains(text(),'Asus N551JK-XO076H Laptop')]");
 	public static final By ADD_YOUR_REVIEW_LINK = By.xpath("//a[contains(text(),'Add your review')]");
+	public static final By FOOTER_SEARCH_PAGE_LINK = By.xpath("//div[@class='footer']//a[contains(text(),'Search')]");
 }
