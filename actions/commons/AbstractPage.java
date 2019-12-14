@@ -1,13 +1,17 @@
 package commons;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -15,14 +19,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.DetailPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
-import pageObjects.MyAccountPageObject;
-import pageObjects.NoteBooksPageObject;
-import pageObjects.ProductReviewPageObject;
 import pageObjects.RegisterPageObject;
-import pageObjects.SearchPageObject;
 import pageUIs.AbstactPageUI;
 
 public class AbstractPage {
@@ -91,39 +90,39 @@ public class AbstractPage {
 	public void sendkeysAlert(String keyVal) {
 		driver.switchTo().alert().sendKeys(keyVal);
 	}
-
-	public void clickToElement(By by) {
-		element = driver.findElement(by);
+	
+	public void clickToElement(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		element.click();
 	}
-
-	public void sendkeysToElement(By by, String keyVal) {
-		element = driver.findElement(by);
+	
+	public void sendkeysToElement(String keyVal,String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator,textVal));
 		element.clear();
 		element.sendKeys(keyVal);
 	}
-
-	public void selectItemInDropdown(By by, String itemVal) {
-		element = driver.findElement(by);
+	
+	public void selectItemInDropdown(String itemVal, String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator,textVal));
 		select = new Select(element);
 		select.selectByVisibleText(itemVal);
 	}
-
-	public String getItemValueInDropdown(By by) {
-		element = driver.findElement(by);
+	
+	public String getItemValueInDropdown(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator,textVal));
 		select = new Select(element);
 		return select.getFirstSelectedOption().getText();
 	}
+	
+	public void selectItemInCustomDropdown(String partenLocator,String parentTextVal, String allItemLocator,String allItemTextVal, String expectedItem) throws Exception {
 
-	public void selectItemInCustomDropdown(By parentXpath, By allItemXpath, String expectedItem) throws Exception {
-
-		WebElement parentDropdown = driver.findElement(parentXpath);
+		WebElement parentDropdown = driver.findElement(byXpath(partenLocator,parentTextVal));
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", parentDropdown);
 		sleepInSecond(1);
 		jsExecutor.executeScript("arguments[0].click();", parentDropdown);
 		sleepInSecond(1);
-		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(allItemXpath));
-		elements = driver.findElements(allItemXpath);
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(byXpath(allItemLocator,allItemTextVal)));
+		elements = driver.findElements(byXpath(allItemLocator,allItemTextVal));
 		for (WebElement item : elements) {
 			if (item.getText().equals(expectedItem)) {
 				jsExecutor.executeScript("arguments[0].scrollIntoView(true);", item);
@@ -134,7 +133,6 @@ public class AbstractPage {
 				break;
 			}
 		}
-
 	}
 
 	public void sleepInSecond(long numberInSecond) {
@@ -144,48 +142,67 @@ public class AbstractPage {
 			e.printStackTrace();
 		}
 	}
-
-	public String getAttributeValue(By by, String attributeName) {
-		element = driver.findElement(by);
+	
+	public String getAttributeValue(String attributeName,String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		return element.getAttribute(attributeName);
 	}
 
-	public String getTextElement(By by) {
-		element = driver.findElement(by);
+	public String getTextElement(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		return element.getText();
 	}
-
-	public int countElementNumber(By by) {
-		elements = driver.findElements(by);
+	
+	public String getCapitalizeTextElement(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
+		return capitalizeString(element.getText());
+	}
+	
+	public int countElementNumber(String locator,String...textVal) {
+		elements = driver.findElements(byXpath(locator, textVal));
 		return elements.size();
 	}
-
-	public void checkToCheckbox(By by) {
-		element = driver.findElement(by);
+	
+	public void checkToCheckbox(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		if (element.isSelected() == false) {
 			element.click();
 		} 
 	}
 
-	public void unCheckToCheckbox(By by) {
-		element = driver.findElement(by);
+	public void unCheckToCheckbox(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		if (element.isSelected() == true) {
 			element.click();
 		} 
 	}
-
-	public boolean elementIsDisplayed(By by) {
-		element = driver.findElement(by);
-		return element.isDisplayed();
+	
+	public void overrideGlobalTimeOut(long timeOut) {
+		driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 	}
+    
+    public boolean elementIsDisplayed(String locator,String...textVal) {
+    	overrideGlobalTimeOut(shortTimeOut);
+        try {
+        	element = driver.findElement(byXpath(locator, textVal));
+        	overrideGlobalTimeOut(longTimeOut);
+    		return element.isDisplayed();
+        } catch (NoSuchElementException e) {
+        	overrideGlobalTimeOut(longTimeOut);
+          return false;
+        } catch (StaleElementReferenceException e) {
+        	overrideGlobalTimeOut(longTimeOut);
+          return false;
+        }
+      }
 
-	public boolean elementIsSelected(By by) {
-		element = driver.findElement(by);
+	public boolean elementIsSelected(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		return element.isSelected();
 	}
 
-	public boolean elementIsEnable(By by) {
-		element = driver.findElement(by);
+	public boolean elementIsEnable(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		return element.isEnabled();
 	}
 
@@ -226,60 +243,65 @@ public class AbstractPage {
 		}
 	}
 
-	public void switchToFrameOrIframe(By by) {
-		element = driver.findElement(by);
+	public void switchToFrameOrIframe(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		driver.switchTo().frame(element);
 	}
 
-	public void switchToParentPage(By by) {
+	public void switchToParentPage() {
 		driver.switchTo().defaultContent();
 	}
 
-	public void doubleClickToElement(By by) {
-		element = driver.findElement(by);
+	public void doubleClickToElement(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		actions.doubleClick(element).perform();
 	}
 
-	public void hoverMouseToElement(By by) {
-		element = driver.findElement(by);
+	public void hoverMouseToElement(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		actions.moveToElement(element).perform();
 	}
-
-	public void rightClick(By by) {
-		element = driver.findElement(by);
+	
+	public void hoverMouseToElementAndClick(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
+		actions.moveToElement(element).perform();
+	}
+	
+	public void rightClick(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		actions.contextClick(element).perform();
 	}
 
-	public void dragAnđrop(By fromX, By toX) {
-		WebElement from = driver.findElement(fromX);
-		WebElement to = driver.findElement(toX);
+	public void dragAnđrop(String locatorFromX, String locatorToX) {
+		WebElement from = driver.findElement(byXpath(locatorFromX));
+		WebElement to = driver.findElement(byXpath(locatorToX));
 		actions.dragAndDrop(from, to).build().perform();
 	}
 
-	public void sendKeyBoardToElement(By by, Keys keysToSend) {
-		element = driver.findElement(by);
+	public void sendKeyBoardToElement(String locator, Keys keysToSend,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		actions.sendKeys(element, keysToSend).perform();
 	}
 
-	public void clickAndHoldElement(By by, int from, int to) {
-		elements = driver.findElements(by);
+	public void clickAndHoldElement(String locator, int from, int to,String...textVal) {
+		elements = driver.findElements(byXpath(locator, textVal));
 		actions.clickAndHold(elements.get(from)).moveToElement(elements.get(to)).release().perform();
 	}
 
-	public void clickAndSelectElement(By by, int elementLocator) {
-		elements = driver.findElements(by);
+	public void clickAndSelectElement(int elementLocator,String locator,String...textVal) {
+		elements = driver.findElements(byXpath(locator, textVal));
 		actions.keyDown(Keys.CONTROL).perform();
 		elements.get(elementLocator).click();
 		actions.keyUp(Keys.CONTROL).perform();
 	}
 
-	public void uploadFileBySenkeyCommands(By by, String filePath) {
-		element = driver.findElement(by);
+	public void uploadFileBySenkeyCommands(String filePath,String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		element.sendKeys(filePath);
 	}
 
-	public void clickStartToUploadFile(By by) {
-		elements = driver.findElements(by);
+	public void clickStartToUploadFile(String locator,String...textVal) {
+		elements = driver.findElements(byXpath(locator, textVal));
 		for (WebElement startBtn : elements) {
 			startBtn.click();
 			sleepInSecond(2);
@@ -325,34 +347,34 @@ public class AbstractPage {
 		jsExecutor.executeScript("window.scrollBy(0," + range + ")", "");
 	}
 
-	public void clickToElementByJS(By by) {
-		element = driver.findElement(by);
+	public void clickToElementByJS(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		jsExecutor.executeScript("arguments[0].click();", element);
 	}
 
-	public void highlightToElement(By by) {
-		element = driver.findElement(by);
+	public void highlightToElement(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		jsExecutor.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');",
 				element);
 	}
 
-	public void scrollToElementByJS(By by) {
-		element = driver.findElement(by);
+	public void scrollToElementByJS(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
-	public void removeAttributeInDOMByJS(By by, String attributeRemove) {
-		element = driver.findElement(by);
+	public void removeAttributeInDOMByJS(String attributeRemove,String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", element);
 	}
 
-	public void sendkeyToElementByJS(By by, String value) {
-		element = driver.findElement(by);
+	public void sendkeyToElementByJS(String value,String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		jsExecutor.executeScript("arguments[0].setAttribute('value', '" + value + "')", element);
 	}
 
-	public boolean checkAnyImageLoaded(By by) {
-		element = driver.findElement(by);
+	public boolean checkAnyImageLoaded(String locator,String...textVal) {
+		element = driver.findElement(byXpath(locator, textVal));
 		boolean status = (boolean) jsExecutor.executeScript(
 				"return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
 				element);
@@ -362,30 +384,30 @@ public class AbstractPage {
 			return false;
 		}
 	}
-
-	public void waitForElementVisible(By by) {
-		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(by));
+	
+	public void waitForElementVisible(String locator, String...textVal) {
+		waitExplicit.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator, textVal)));
 	}
 	
-	public void waitForAllElementsVisible(By by) {
-		waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+	public void waitForAllElementsVisible(String locator,String...textVal) {
+		waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(locator, textVal)));
 	}
 
-	public void waitForElementInvisible(By by) {
-		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(by));
+	public void waitForElementInvisible(String locator,String...textVal) {
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator, textVal)));
 	}
 	
 
-	public void waitForElementPresense(By by) {
-		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(by));
+	public void waitForElementPresense(String locator,String...textVal) {
+		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(byXpath(locator, textVal)));
 	}
 	
-	public void waitForAllElementsPresense(By by) {
-		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+	public void waitForAllElementsPresense(String locator,String...textVal) {
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(byXpath(locator, textVal)));
 	}
 
-	public void waitForElementClickable(By by) {
-		waitExplicit.until(ExpectedConditions.elementToBeClickable(by));
+	public void waitForElementClickable(String locator,String...textVal) {
+		waitExplicit.until(ExpectedConditions.elementToBeClickable(byXpath(locator, textVal)));
 	}
 
 	public int randomNumber() {
@@ -393,10 +415,10 @@ public class AbstractPage {
 		return random.nextInt(999999);
 	}
 	
-	public boolean compareStringFromElementText(By by,String expTextVal) {
+	public boolean compareStringFromElementsText(String expTextVal,String locator,String...textVal) {
 		
 		boolean result = false;
-		elements = driver.findElements(by);
+		elements = driver.findElements(byXpath(locator, textVal));
 		ArrayList<String> allTextElement = new ArrayList<String>();
 		for (WebElement element : elements) {
 			allTextElement.add(element.getText());
@@ -406,59 +428,165 @@ public class AbstractPage {
 		}
 		return result;
 	}
-
-	public RegisterPageObject openRegisterPage() {
-		waitForElementVisible(AbstactPageUI.HEADER_REGISTER_LINK);
-		clickToElement(AbstactPageUI.HEADER_REGISTER_LINK);
-		return PageGeneratorManager.getRegisterPage(driver);
-	}
-
-	public LoginPageObject openLoginPage() {
-		waitForElementVisible(AbstactPageUI.HEADER_LOGIN_LINK);
-		clickToElement(AbstactPageUI.HEADER_LOGIN_LINK);
-		return PageGeneratorManager.getLoginPage(driver);
+	
+	public boolean compareStringFromElementText(String expTextVal,String locator,String...textVal) {
+		
+		boolean result = false;
+		element = driver.findElement(byXpath(locator, textVal));
+		if(element.getText().contains(expTextVal)) {
+			result = true;
+		}
+		return result;
 	}
 	
-	public MyAccountPageObject openMyAccountPage() {
-		waitForElementVisible(AbstactPageUI.HEADER_MY_ACCOUNT_LINK);
-		clickToElement(AbstactPageUI.HEADER_MY_ACCOUNT_LINK);
-		return PageGeneratorManager.getMyAccountPage(driver);
+	public boolean sortDataAcending(String locator,String...textVal) {
+		
+		boolean compare = false;
+		
+		List<String> allItemData = new ArrayList<String>();
+		
+		elements = driver.findElements(byXpath(locator, textVal));
+		for (WebElement element : elements) {
+			allItemData.add(element.getText());
+		}
+		
+		List<String> sortDataAcending = new ArrayList<String>();
+		 for(String data : allItemData) {
+			 sortDataAcending.add(data);
+		  } 
+		Collections.sort(sortDataAcending);
+		compare = allItemData.equals(sortDataAcending);
+		
+		return compare;
 	}
 	
-	public HomePageObject clickToLoginButton() {
-		waitForElementVisible(AbstactPageUI.HEADER_LOGIN_BUTTON);
-		clickToElement(AbstactPageUI.HEADER_LOGIN_BUTTON);
-		return PageGeneratorManager.getHomePage(driver);
+	public boolean sortDataDecending(String locator,String...textVal) {
+		
+		boolean compare = false;
+		
+		List<String> allItemData = new ArrayList<String>();
+		
+		elements = driver.findElements(byXpath(locator, textVal));
+		for (WebElement element : elements) {
+			allItemData.add(element.getText());
+		}
+		
+		List<String> sortDataDecending = new ArrayList<String>();
+		 for(String data : allItemData) {
+			 sortDataDecending.add(data);
+		  } 
+		Collections.sort(sortDataDecending,Collections.reverseOrder());
+		compare = allItemData.equals(sortDataDecending);
+		
+		return compare;
+	}
+	
+	public boolean compareNumberOfItem(int expVal,String locator,String...textVal) {
+		
+		boolean compare = false;
+		
+		if(countElementNumber(locator, textVal) <= expVal) {
+			compare = true;
+		}
+		return compare;
+	}
+	
+	public By byXpath(String locator, String...textVal) {
+		By byXpath;
+		if(textVal.length ==0) {
+			byXpath = By.xpath(locator);
+		}else {
+			locator = String.format(locator, (Object[])textVal);
+			byXpath = By.xpath(locator);
+		}
+		return byXpath;
+	}
+	
+	public String getNumberFromElementText(String locator, String...textVal) {
+		return getTextElement(locator, textVal).replaceAll("\\D+","");
+	}
+	
+	public String capitalizeString(String string) {
+		  char[] chars = string.toLowerCase().toCharArray();
+		  boolean found = false;
+		  for (int i = 0; i < chars.length; i++) {
+		    if (!found && Character.isLetter(chars[i])) {
+		      chars[i] = Character.toUpperCase(chars[i]);
+		      found = true;
+		    } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+		      found = false;
+		    }
+		  }
+		  return String.valueOf(chars);
+		}
+	
+	public void hoverToMenuBarName(String locatorName) {
+		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_MENUBAR_DYNAMIC,locatorName);
+		hoverMouseToElement(AbstactPageUI.A_CONTAINS_TEXT_MENUBAR_DYNAMIC,locatorName);
+	}
+	
+	
+	public void hoverToHeaderShoppingCart() {
+		waitForElementVisible(AbstactPageUI.SPAN_CLASS_DYNAMIC, AbstactPageUI.SPAN_CLASS_HEADER_SHOPPING_CART);
+		hoverMouseToElement(AbstactPageUI.SPAN_CLASS_DYNAMIC, AbstactPageUI.SPAN_CLASS_HEADER_SHOPPING_CART);
+	}
+	
+	public boolean isMiniShoppingCartDisplayed() {
+		waitForElementVisible(AbstactPageUI.DIV_CLASS_DYNAMIC,AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART);
+		return elementIsDisplayed(AbstactPageUI.DIV_CLASS_DYNAMIC,AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART);
+	}
+	
+	public String getMiniShoppingCartByValue(String dynamicLocator , String relLocator) {
+		waitForElementVisible(dynamicLocator, relLocator);
+		return getTextElement(dynamicLocator, relLocator);
+	}
+	
+	public void openHeaderDynamicPage(String...textVal) {
+		waitForElementVisible(AbstactPageUI.A_CLASS_DYNAMIC,textVal);
+		clickToElement(AbstactPageUI.A_CLASS_DYNAMIC,textVal);
+	}
+	
+	public void openMenuBarDynamicPage(String...textVal) {
+		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_MENUBAR_DYNAMIC,textVal);
+		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_MENUBAR_DYNAMIC,textVal);
+	}
+	
+	public void openDynamicPage(String...textVal) {
+		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,textVal);
+		clickToElementByJS(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,textVal);
+	}
+	
+	public void openDetailDynamicPage(String...textVal) {
+		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_PRODUCT_TITLE_DYNAMIC,textVal);
+		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_PRODUCT_TITLE_DYNAMIC,textVal);
+	}
+	
+	public void openFooterDynamicPage(String...textVal) {
+		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC_FOOTER,textVal);
+		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC_FOOTER,textVal);
 	}
 	
 	public HomePageObject clickToLogoutLink() {
-		waitForElementVisible(AbstactPageUI.HEADER_LOGOUT_LINK);
-		clickToElement(AbstactPageUI.HEADER_LOGOUT_LINK);
+		waitForElementVisible(AbstactPageUI.A_CLASS_DYNAMIC,AbstactPageUI.A_CLASS_HEADER_LOGOUT_LINK);
+		clickToElement(AbstactPageUI.A_CLASS_DYNAMIC,AbstactPageUI.A_CLASS_HEADER_LOGOUT_LINK);
 		return PageGeneratorManager.getHomePage(driver);
 	}
 	
-	public NoteBooksPageObject openNoteBooksPage() {
-		hoverMouseToElement(AbstactPageUI.MENUBAR_COMPUTER_MENU);
-		waitForElementVisible(AbstactPageUI.MENUBAR_NOTEBOOKS_LINK);
-		clickToElement(AbstactPageUI.MENUBAR_NOTEBOOKS_LINK);
-		return PageGeneratorManager.getNoteBooksPage(driver);
+	public LoginPageObject openLoginPage() {
+		waitForElementVisible(AbstactPageUI.A_CLASS_DYNAMIC,AbstactPageUI.A_CLASS_HEADER_LOGIN_LINK);
+		clickToElement(AbstactPageUI.A_CLASS_DYNAMIC,AbstactPageUI.A_CLASS_HEADER_LOGIN_LINK);
+		return PageGeneratorManager.getLoginPage(driver);
 	}
 	
-	public DetailPageObject openDetailPage() {
-		waitForElementVisible(AbstactPageUI.NOTERBOOKS_ASUS_N551_PRODUCT);
-		clickToElement(AbstactPageUI.NOTERBOOKS_ASUS_N551_PRODUCT);
-		return PageGeneratorManager.getDetailPage(driver);
+	public HomePageObject clickHomePageIcon() {
+		waitForElementVisible(AbstactPageUI.HOME_PAGE_LOGO);
+		clickToElement(AbstactPageUI.HOME_PAGE_LOGO);
+		return PageGeneratorManager.getHomePage(driver);
 	}
 	
-	public ProductReviewPageObject openProductReviewPage() {
-		waitForElementVisible(AbstactPageUI.ADD_YOUR_REVIEW_LINK);
-		clickToElement(AbstactPageUI.ADD_YOUR_REVIEW_LINK);
-		return PageGeneratorManager.getProductReviewPage(driver);
-	}
-	
-	public SearchPageObject openSearchPage() {
-		waitForElementVisible(AbstactPageUI.FOOTER_SEARCH_PAGE_LINK);
-		clickToElement(AbstactPageUI.FOOTER_SEARCH_PAGE_LINK);
-		return PageGeneratorManager.getSearchPage(driver);
+	public RegisterPageObject openRegisterPage() {
+		waitForElementVisible(AbstactPageUI.A_CLASS_DYNAMIC,AbstactPageUI.A_CLASS_HEADER_REGISTER_LINK);
+		clickToElement(AbstactPageUI.A_CLASS_DYNAMIC,AbstactPageUI.A_CLASS_HEADER_REGISTER_LINK);
+		return PageGeneratorManager.getRegisterPage(driver);
 	}
 }

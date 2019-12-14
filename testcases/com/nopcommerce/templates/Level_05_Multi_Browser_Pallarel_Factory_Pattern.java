@@ -80,7 +80,7 @@ public class Level_05_Multi_Browser_Pallarel_Factory_Pattern extends AbstractTes
 		loginPage.inputToEmailTextbox(regEmail);
 		loginPage.inputToPasswordTextbox(regPassword);
 
-		homePage = loginPage.clickToLoginButton();
+		homePage = loginPage.openHomepageByClickToLoginButton();
 
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}

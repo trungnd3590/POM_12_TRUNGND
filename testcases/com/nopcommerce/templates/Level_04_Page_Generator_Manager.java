@@ -79,7 +79,7 @@ public class Level_04_Page_Generator_Manager {
 		loginPage.inputToEmailTextbox(regEmail);
 		loginPage.inputToPasswordTextbox(regPassword);
 
-		homePage = loginPage.clickToLoginButton();
+		homePage = loginPage.openHomepageByClickToLoginButton();
 		
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}

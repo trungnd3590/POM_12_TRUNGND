@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
+import pageUIs.AbstactPageUI;
 import pageUIs.SearchPageUI;
 
 public class SearchPageObject extends AbstractPage{
@@ -13,68 +14,68 @@ public class SearchPageObject extends AbstractPage{
 	}
 	
 	public boolean isSearchPageFormDisplayed() {
-		waitForElementVisible(SearchPageUI.SEARCH_PAGE_FORM);
-		return elementIsDisplayed(SearchPageUI.SEARCH_PAGE_FORM);
+		waitForElementVisible(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_PAGE_FORM);
+		return elementIsDisplayed(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_PAGE_FORM);
 	}
 	
 	public void inputToSearchTextbox(String searchVal) {
-		waitForElementVisible(SearchPageUI.SEARCH_TEXTBOX);
-		sendkeysToElement(SearchPageUI.SEARCH_TEXTBOX, searchVal);
+		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_TEXTBOX);
+		sendkeysToElement(searchVal,AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_TEXTBOX);
 	}
 	
 	public void clickToAdvanceSearchCheckbox() {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_CHECKBOX);
-		checkToCheckbox(SearchPageUI.SEARCH_ADVANCE_CHECKBOX);
+		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_CHECKBOX);
+		checkToCheckbox(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_CHECKBOX);
 	}
 	
 	public boolean isSearchAdvanceFormDisplayed() {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_FORM);
-		return elementIsDisplayed(SearchPageUI.SEARCH_ADVANCE_FORM);
+		waitForElementVisible(AbstactPageUI.DIV_ID_DYNAMIC,SearchPageUI.DIV_ID_SEARCH_ADVANCE_FORM);
+		return elementIsDisplayed(AbstactPageUI.DIV_ID_DYNAMIC,SearchPageUI.DIV_ID_SEARCH_ADVANCE_FORM);
 	}
 	
 	public void selectItemFromCategoryDropdown(String itemVal) {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_CATEGORY_DROPDOWN);
-		selectItemInDropdown(SearchPageUI.SEARCH_ADVANCE_CATEGORY_DROPDOWN, itemVal);
+		waitForElementVisible(AbstactPageUI.SELECT_ID_DYNAMIC,SearchPageUI.SELECT_ID_SEARCH_ADVANCE_CATEGORY_DROPDOWN);
+		selectItemInDropdown(itemVal,AbstactPageUI.SELECT_ID_DYNAMIC,SearchPageUI.SELECT_ID_SEARCH_ADVANCE_CATEGORY_DROPDOWN);
 	}
 	
 	public void clickToAdvanceSearchSubCategoryCheckbox() {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_SUB_CATEGORY_CHECKBOX);
-		checkToCheckbox(SearchPageUI.SEARCH_ADVANCE_SUB_CATEGORY_CHECKBOX);
+		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_SUB_CATEGORY_CHECKBOX);
+		checkToCheckbox(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_SUB_CATEGORY_CHECKBOX);
 	}
 	
 	public void selectItemFromManufacturerDropdown(String itemVal) {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_MANUFACTURER_DROPDOWN);
-		selectItemInDropdown(SearchPageUI.SEARCH_ADVANCE_MANUFACTURER_DROPDOWN, itemVal);
+		waitForElementVisible(AbstactPageUI.SELECT_ID_DYNAMIC,SearchPageUI.SELECT_ID_SEARCH_ADVANCE_MANUFACTURER_DROPDOWN);
+		selectItemInDropdown(itemVal,AbstactPageUI.SELECT_ID_DYNAMIC,SearchPageUI.SELECT_ID_SEARCH_ADVANCE_MANUFACTURER_DROPDOWN);
 	}
 	
 	public void inputToMinimumPriceRangeTextbox(String minVal) {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_MINIMUM_PRICE_RANGE_TEXTBOX);
-		sendkeysToElement(SearchPageUI.SEARCH_ADVANCE_MINIMUM_PRICE_RANGE_TEXTBOX, minVal);
+		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_MINIMUM_PRICE_RANGE_TEXTBOX);
+		sendkeysToElement(minVal,AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_MINIMUM_PRICE_RANGE_TEXTBOX);
 	}
 	
 	public void inputToMaximumPriceRangeTextbox(String maxVal) {
-		waitForElementVisible(SearchPageUI.SEARCH_ADVANCE_MAXIMUM_PRICE_RANGE_TEXTBOX);
-		sendkeysToElement(SearchPageUI.SEARCH_ADVANCE_MAXIMUM_PRICE_RANGE_TEXTBOX, maxVal);
+		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_MAXIMUM_PRICE_RANGE_TEXTBOX);
+		sendkeysToElement(maxVal,AbstactPageUI.INPUT_ID_DYNAMIC,SearchPageUI.INPUT_ID_SEARCH_ADVANCE_MAXIMUM_PRICE_RANGE_TEXTBOX);
 	}
 	
 	public void clickToSearchButton() {
-		waitForElementVisible(SearchPageUI.SEARCH_BUTTON);
-		clickToElement(SearchPageUI.SEARCH_BUTTON);
+		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,SearchPageUI.INPUT_CLASS_SEARCH_BUTTON);
+		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,SearchPageUI.INPUT_CLASS_SEARCH_BUTTON);
 	}
 	
 	public String getSearchWarningMesssageData() {
-		waitForElementVisible(SearchPageUI.SEARCH_WARNING_MESSAGE);
-		return getTextElement(SearchPageUI.SEARCH_WARNING_MESSAGE);
+		waitForElementVisible(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_WARNING_MESSAGE);
+		return getTextElement(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_WARNING_MESSAGE);
 	}
 	
 	public String getSearchNoResultMesssageData() {
-		waitForElementVisible(SearchPageUI.SEARCH_NO_RESULT_MESSAGE);
-		return getTextElement(SearchPageUI.SEARCH_NO_RESULT_MESSAGE);
+		waitForElementVisible(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_NO_RESULT_MESSAGE);
+		return getTextElement(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_NO_RESULT_MESSAGE);
 	}
 	
 	public boolean isSearchResultItemGridDisplayed() {
-		waitForElementVisible(SearchPageUI.SEARCH_RESULT_ITEM_GRID);
-		return elementIsDisplayed(SearchPageUI.SEARCH_RESULT_ITEM_GRID);
+		waitForElementVisible(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_RESULT_ITEM_GRID);
+		return elementIsDisplayed(AbstactPageUI.DIV_CLASS_DYNAMIC,SearchPageUI.DIV_CLASS_SEARCH_RESULT_ITEM_GRID);
 	}
 	
 	public int countNumberOfItems() {
@@ -84,7 +85,7 @@ public class SearchPageObject extends AbstractPage{
 	
 	public boolean isSearchItemNameDisplayed(String expItemNameVal) {
 		waitForAllElementsVisible(SearchPageUI.SEARCH_RESULT_ITEM_NAME);
-		return compareStringFromElementText(SearchPageUI.SEARCH_RESULT_ITEM_NAME, expItemNameVal);
+		return compareStringFromElementsText(expItemNameVal,SearchPageUI.SEARCH_RESULT_ITEM_NAME);
 	}
 	
 	

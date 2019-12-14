@@ -8,6 +8,7 @@ import driverFactoryPattern.DriverManager;
 import driverFactoryPattern.DriverManagerFactory;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
+import pageUIs.AbstactPageUI;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -15,7 +16,6 @@ import org.testng.annotations.Parameters;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
 public class FE_02_Login extends AbstractTest {
@@ -37,6 +37,7 @@ public class FE_02_Login extends AbstractTest {
 		driver.manage().window().maximize();
 
 		String pageUrl = "https://demo.nopcommerce.com/";
+		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
 	}
 
@@ -47,15 +48,22 @@ public class FE_02_Login extends AbstractTest {
 		passwordVal = "";
 		String emailErrMessage = "Please enter your email";
 		
+		log.info("TC01_Login_With_Empty_Data - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
 		
-		loginPage = homePage.openLoginPage();
+		log.info("TC01_Login_With_Empty_Data - Step 02 : Open Login Page Through Header Login Link");
+		homePage.openHeaderDynamicPage(AbstactPageUI.A_CLASS_HEADER_LOGIN_LINK);
+		loginPage = PageGeneratorManager.getLoginPage(driver);
 		
+		log.info("TC01_Login_With_Empty_Data - Step 03 : Login account With Empty Data");
 		loginPage.inputToEmailTextbox(emailVal);
 		loginPage.inputToPasswordTextbox(passwordVal);
+		
+		log.info("TC01_Login_With_Empty_Data - Step 04 : Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		Assert.assertEquals(emailErrMessage, loginPage.getEmailErrorMessage());
+		log.info("TC01_Login_With_Empty_Data - Step 05 : Verify Error Message in Email Field");
+		verifyEquals(emailErrMessage, loginPage.getEmailErrorMessage());
 
 	}
 
@@ -66,26 +74,34 @@ public class FE_02_Login extends AbstractTest {
 		passwordVal = "123456";
 		String emailErrMessage = "Wrong email";
 		
+		log.info("TC02_Login_With_Invalid_Email - Step 01 : Login account With Invalid Email");
 		loginPage.inputToEmailTextbox(emailVal);
 		loginPage.inputToPasswordTextbox(passwordVal);
+		
+		log.info("TC02_Login_With_Invalid_Email - Step 02 : Click to Login Button");
 		loginPage.clickToLoginButton();
 
-		Assert.assertEquals(emailErrMessage, loginPage.getEmailErrorMessage());
+		log.info("TC02_Login_With_Invalid_Email - Step 03 : Verify Error Message in Email Field");
+		verifyEquals(emailErrMessage, loginPage.getValidationErrorMessage());
 	}
 
 	@Test
 	public void TC03_Login_With_Unregisted_Email() {
 
-		emailVal = "auto@gmail.com";
+		emailVal = "auto01@gmail.com";
 		passwordVal = "123456";
 		String emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
 				"No customer account found";
 		
+		log.info("TC03_Login_With_Unregisted_Email - Step 01 : Login account With Unregisted Email");
 		loginPage.inputToEmailTextbox(emailVal);
 		loginPage.inputToPasswordTextbox(passwordVal);
+		
+		log.info("TC03_Login_With_Unregisted_Email - Step 02 : Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		Assert.assertEquals(emailErrMessage, loginPage.getUnregistedEmailErrorMessage());
+		log.info("TC03_Login_With_Unregisted_Email - Step 03 : Verify Error Message in Email Field");
+		verifyEquals(emailErrMessage, loginPage.getLoginCommonErrorMessage());
 	
 	}
 
@@ -97,11 +113,15 @@ public class FE_02_Login extends AbstractTest {
 		String emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
 				"The credentials provided are incorrect";
 		
+		log.info("TC04_Login_With_Empty_Password - Step 01 : Login account With Empty Password");
 		loginPage.inputToEmailTextbox(emailVal);
 		loginPage.inputToPasswordTextbox(passwordVal);
+		
+		log.info("TC04_Login_With_Empty_Password - Step 02 : Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		Assert.assertEquals(emailErrMessage, loginPage.getValidationErrorMessage());
+		log.info("TC04_Login_With_Empty_Password - Step 03 : Verify Error Message in Password Field");
+		verifyEquals(emailErrMessage, loginPage.getLoginCommonErrorMessage());
 	}
 
 
@@ -113,25 +133,34 @@ public class FE_02_Login extends AbstractTest {
 		String emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
 				"The credentials provided are incorrect";
 		
+		log.info("TC05_Login_With_Wrong_Password - Step 01 : Login account With Wrong Password");
 		loginPage.inputToEmailTextbox(emailVal);
 		loginPage.inputToPasswordTextbox(passwordVal);
+		
+		log.info("TC05_Login_With_Wrong_Password - Step 02 : Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		Assert.assertEquals(emailErrMessage, loginPage.getValidationErrorMessage());
+		log.info("TC05_Login_With_Wrong_Password - Step 03 : Verify Error Message in Password Field");
+		verifyEquals(emailErrMessage, loginPage.getLoginCommonErrorMessage());
 
 	}
 
 	@Test
 	public void TC06_Login_To_System() {
 
-		emailVal = "automationfc.vn@gmail.com";
+		emailVal = "auto@gmail.com";
 		passwordVal = "123456";
 	
+		log.info("TC06_Login_To_System - Step 01 : Login account With Valid Data");
 		loginPage.inputToEmailTextbox(emailVal);
 		loginPage.inputToPasswordTextbox(passwordVal);
-		homePage = loginPage.clickToLoginButton();
 		
-		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
+		log.info("TC06_Login_To_System - Step 02 : Click to Login Button and back To HomePage");
+		loginPage.clickToLoginButton();
+		homePage = PageGeneratorManager.getHomePage(driver);
+		
+		log.info("TC06_Login_To_System - Step 03 : Verify login success and show 'My Account' link in Header");
+		verifyTrue(homePage.isMyAccountLinkDisplayed());
 	}
 
 	

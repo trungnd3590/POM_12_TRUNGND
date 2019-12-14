@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
+import pageUIs.AbstactPageUI;
 import pageUIs.ProductReviewPageUI;
 
 public class ProductReviewPageObject extends AbstractPage{
@@ -13,32 +14,32 @@ public class ProductReviewPageObject extends AbstractPage{
 	}
 
 	public boolean isProductReviewPageDisplayed() {
-		waitForElementVisible(ProductReviewPageUI.PRODUCT_REVIEW_FORM);
-		return elementIsDisplayed(ProductReviewPageUI.PRODUCT_REVIEW_FORM);
+		waitForElementVisible(AbstactPageUI.DIV_ID_DYNAMIC,ProductReviewPageUI.DIV_ID_PRODUCT_REVIEW_FORM);
+		return elementIsDisplayed(AbstactPageUI.DIV_ID_DYNAMIC,ProductReviewPageUI.DIV_ID_PRODUCT_REVIEW_FORM);
 	}
 	
-	public String getProductReviewNameData() {
-		waitForElementVisible(ProductReviewPageUI.PRODUCT_ASUS_N551_REVIEW);
-		return getTextElement(ProductReviewPageUI.PRODUCT_ASUS_N551_REVIEW);
+	public String getProductReviewNameData(String locatorName) {
+		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,locatorName);
+		return getTextElement(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,locatorName);
 	}
 	
 	public void inputToReviewTitleTexbox(String titleVal) {
-		waitForElementVisible(ProductReviewPageUI.PRODUCT_REVIEW_TITLE_TEXTBOX);
-		sendkeysToElement(ProductReviewPageUI.PRODUCT_REVIEW_TITLE_TEXTBOX, titleVal);
+		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,ProductReviewPageUI.INPUT_ID_PRODUCT_REVIEW_TITLE_TEXTBOX);
+		sendkeysToElement(titleVal,AbstactPageUI.INPUT_ID_DYNAMIC,ProductReviewPageUI.INPUT_ID_PRODUCT_REVIEW_TITLE_TEXTBOX);
 	}
 	
 	public void inputToReviewDescriptionTextarea(String descriptionVal) {
 		waitForElementVisible(ProductReviewPageUI.PRODUCT_REVIEW_DESCRIPTION_TEXTAREA);
-		sendkeysToElement(ProductReviewPageUI.PRODUCT_REVIEW_DESCRIPTION_TEXTAREA, descriptionVal);
+		sendkeysToElement(descriptionVal,ProductReviewPageUI.PRODUCT_REVIEW_DESCRIPTION_TEXTAREA);
 	}
 	
 	public void clickToSubmitReviewButton() {
-		waitForElementVisible(ProductReviewPageUI.PRODUCT_REVIEW_SUBMIT_BUTTON);
-		clickToElement(ProductReviewPageUI.PRODUCT_REVIEW_SUBMIT_BUTTON);
+		waitForElementVisible(AbstactPageUI.INPUT_NAME_DYNAMIC,ProductReviewPageUI.INPUT_NAME_PRODUCT_REVIEW_SUBMIT_BUTTON);
+		clickToElement(AbstactPageUI.INPUT_NAME_DYNAMIC,ProductReviewPageUI.INPUT_NAME_PRODUCT_REVIEW_SUBMIT_BUTTON);
 	}
 	
 	public String getProductReviewResultMessageData() {
-		waitForElementVisible(ProductReviewPageUI.PRODUCT_REVIEW_RESULT_MESSAGE);
-		return getTextElement(ProductReviewPageUI.PRODUCT_REVIEW_RESULT_MESSAGE);
+		waitForElementVisible(AbstactPageUI.DIV_CLASS_DYNAMIC,ProductReviewPageUI.DIV_CLASS_PRODUCT_REVIEW_RESULT_MESSAGE);
+		return getTextElement(AbstactPageUI.DIV_CLASS_DYNAMIC,ProductReviewPageUI.DIV_CLASS_PRODUCT_REVIEW_RESULT_MESSAGE);
 	}
 }

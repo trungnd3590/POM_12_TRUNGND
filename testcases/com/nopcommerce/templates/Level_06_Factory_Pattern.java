@@ -85,7 +85,7 @@ public class Level_06_Factory_Pattern extends AbstractTest {
 		loginPage.inputToEmailTextbox(regEmail);
 		loginPage.inputToPasswordTextbox(regPassword);
 
-		homePage = loginPage.clickToLoginButton();
+		homePage = loginPage.openHomepageByClickToLoginButton();
 
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 	}

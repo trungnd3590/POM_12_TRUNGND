@@ -20,27 +20,27 @@ public class Level_02_AbstractPage {
 			regPassword;
 	AbstractPage absPage;
 
-	By registerLinkX = By.xpath("//a[@class='ico-register']");
-	By registerPageX = By.xpath("//div[@class='page registration-page']");
-	By genderMaleRadioBtnX = By.xpath("//input[@id='gender-male']");
-	By firstNameTxtX = By.xpath("//input[@id='FirstName']");
-	By lastNameTxtX = By.xpath("//input[@id='LastName']");
-	By dateOfBirthDropDownX = By.xpath("//select[@name='DateOfBirthDay']");
-	By dateOfMonthDropDownX = By.xpath("//select[@name='DateOfBirthMonth']");
-	By dateOfYearDropDownX = By.xpath("//select[@name='DateOfBirthYear']");
-	By emailTxtX = By.xpath("//input[@id='Email']");
-	By companyNameTxtX = By.xpath("//input[@id='Company']");
-	By passwordTxtX = By.xpath("//input[@id='Password']");
-	By confirmPasswordTxtX = By.xpath("//input[@id='ConfirmPassword']");
-	By registerBtnX = By.xpath("//input[@id='register-button']");
+	String registerLinkX = "//a[@class='ico-register']";
+	String registerPageX = "//div[@class='page registration-page']";
+	String genderMaleRadioBtnX = "//input[@id='gender-male']";
+	String firstNameTxtX = "//input[@id='FirstName']";
+	String lastNameTxtX = "//input[@id='LastName']";
+	String dateOfBirthDropDownX = "//select[@name='DateOfBirthDay']";
+	String dateOfMonthDropDownX = "//select[@name='DateOfBirthMonth']";
+	String dateOfYearDropDownX = "//select[@name='DateOfBirthYear']";
+	String emailTxtX = "//input[@id='Email']";
+	String companyNameTxtX = "//input[@id='Company']";
+	String passwordTxtX = "//input[@id='Password']";
+	String confirmPasswordTxtX = "//input[@id='ConfirmPassword']";
+	String registerBtnX = "//input[@id='register-button']";
 
-	By registerSuccessMsgX = By.xpath("//div[@class='result']");
-	By logOutLinkX = By.xpath("//a[@class='ico-logout']");
+	String registerSuccessMsgX = "//div[@class='result']";
+	String logOutLinkX = "//a[@class='ico-logout']";
 
-	By loginLinkX = By.xpath("//a[@class='ico-login']");
-	By loginPageX = By.xpath("//div[@class='page login-page']");
-	By loginBtnX = By.xpath("//input[@class='button-1 login-button']");
-	By myAccountLinkX = By.xpath("//a[@class='ico-account']");
+	String loginLinkX = "//a[@class='ico-login']";
+	String loginPageX = "//div[@class='page login-page']";
+	String loginBtnX = "//input[@class='button-1 login-button']";
+	String myAccountLinkX = "//a[@class='ico-account']";
 
 	@BeforeClass
 	public void beforeClass() {

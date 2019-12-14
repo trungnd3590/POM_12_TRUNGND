@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Nop Commerce" parallel="tests" thread-count="1">
 
+<listeners>
+	<listener class-name = "commons.MethodListener"/>
+	<!--<listener class-name = "reportConfig.ExtentReportListenerv2"/>-->
+	<listener class-name = "reportConfig.ExtentReportListenerv4"/>
+	<listener class-name = "org.uncommons.reportng.HTMLReporter"/>
+	<listener class-name = "org.uncommons.reportng.JunitXMLReporter"/>
+</listeners>
+
 	<test name="Run on FIREFOX UI">
 		<parameter name="browser" value="firefox_ui" />
 		<classes>
 			<class
-				name="com.nopcommerce.frontend.Nop_Com_Search" />
+				name="com.nopcommerce.frontend.FE_07_Orders" />
 		</classes>
 	</test>
 <!-- 
