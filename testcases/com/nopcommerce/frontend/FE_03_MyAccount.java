@@ -30,9 +30,11 @@ import org.testng.annotations.AfterClass;
 public class FE_03_MyAccount extends AbstractTest {
 
 	private WebDriver driver;
-	String firstNameVal, lastNameVal, dateOfBirthVal, dateOfMonthVal, dateOfYearVal, emailVal, companyNameVal, passVal;
-	String upFirstNameVal, upLastNameVal, upDateOfBirthVal, upDateOfMonthVal, upDateOfYearVal, upEmailVal, upCompanyNameVal;
-	String addFirstNameVal, addLastNameVal,addEmailVal, addCompanyNameVal, addCountryVal, addStateVal, addCityNameVal,  addAddress01Val, addAddress02Val, addZipcodeVal, addPhoneNumberVal, addFaxNumberVal;
+	private String firstNameVal, lastNameVal, dateOfBirthVal, dateOfMonthVal, dateOfYearVal, emailVal, companyNameVal, passVal, attributeVal,randomVal;
+	private String upFirstNameVal, upLastNameVal, upDateOfBirthVal, upDateOfMonthVal, upDateOfYearVal, upEmailVal, upCompanyNameVal,newPassVal;
+	private String addFirstNameVal, addLastNameVal,addEmailVal, addCompanyNameVal, addCountryVal, addStateVal, addCityNameVal,  addAddress01Val, addAddress02Val, 
+	addZipcodeVal, addPhoneNumberVal, addFaxNumberVal;
+	private String changePassResultText,passErrMessage,asusProductName,asusTitleVal,asusDescriptionVal,addReviewResultMessage;
 	boolean genderMale,genderFemale;
 	
 	private DriverManager driverManager;
@@ -52,7 +54,29 @@ public class FE_03_MyAccount extends AbstractTest {
 		driver = driverManager.getDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		
+		attributeVal = "value";randomVal = "" + randomNumber() + ""; newPassVal = "" + randomNumber() + "";
+		
+		changePassResultText = "Password was changed";
+		passErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
+				"The credentials provided are incorrect";
+		
+		asusProductName = "Asus N551JK-XO076H Laptop";
+		asusTitleVal = "Asus N551JK Review Title";
+		asusDescriptionVal = "Asus N551JK Review Description";
+		addReviewResultMessage = "Product review is successfully added.";
 
+		firstNameVal = "Spider"; lastNameVal = "Man" + randomVal; dateOfBirthVal = "20"; dateOfMonthVal = "October"; dateOfYearVal = "2000";
+		emailVal = "spider_man_" + randomVal + "@gmail.com"; companyNameVal = "Marvel Studio Entertainment" + randomVal; passVal = "" + randomVal + "";
+		
+		upFirstNameVal = "John"; upLastNameVal = "Wick" + randomVal; upDateOfBirthVal = "15"; upDateOfMonthVal = "May"; upDateOfYearVal = "1990";
+		upEmailVal = "john_wick_" + randomVal + "@gmail.com"; upCompanyNameVal = "John Wick Entertainment" + randomVal;
+		
+		addFirstNameVal = "Doctor"; addLastNameVal = "Strange" + randomVal; addEmailVal = "doctor_strange_" + randomVal +"@gmail.com"; 
+		addCompanyNameVal = "Marvel Entertainment" + randomVal; addCountryVal = "Viet Nam"; addStateVal = "Other (Non US)"; 
+		addCityNameVal = "Ha Noi";  addAddress01Val = "03 Tran Thai Tong"; addAddress02Val = "09 Nguyen Huy Tuong"; addZipcodeVal = "10166"; 
+		addPhoneNumberVal = "0987654321"; addFaxNumberVal = "0123456789";
+		
 		String pageUrl = "https://demo.nopcommerce.com/";
 		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
@@ -60,13 +84,7 @@ public class FE_03_MyAccount extends AbstractTest {
 
 	@Test
 	public void TC01_Update_Customer_Info() throws Exception {
-
-		firstNameVal = "Spider"; lastNameVal = "Man"+randomNumber(); dateOfBirthVal = "20"; dateOfMonthVal = "October"; dateOfYearVal = "2000";
-		emailVal = "spider_man_"+randomNumber()+"@gmail.com"; companyNameVal = "Marvel Studio Entertainment"+randomNumber(); passVal = ""+randomNumber()+"";
 		
-		upFirstNameVal = "John"; upLastNameVal = "Wick"+randomNumber(); upDateOfBirthVal = "15"; upDateOfMonthVal = "May"; upDateOfYearVal = "1990";
-		upEmailVal = "john_wick_"+randomNumber()+"@gmail.com"; upCompanyNameVal = "John Wick Entertainment"+randomNumber();
-
 		log.info("TC01_Update_Customer_Info - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
 		
@@ -121,13 +139,13 @@ public class FE_03_MyAccount extends AbstractTest {
 		
 		log.info("TC01_Update_Customer_Info - Step 14 : Verify Account Info is Matched with Register Data");
 		//Assert.verifyEquals("",myAccountPage.isGenderButtonSelected(MyAccountPageUI.SPAN_CLASS_GENDER_MALE_RADIOBUTTON, "checked"));
-		verifyEquals(firstNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_FIRSTNAME_TEXTBOX, "value"));
-		verifyEquals(lastNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_LASTNAME_TEXTBOX, "value"));
+		verifyEquals(firstNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_FIRSTNAME_TEXTBOX, attributeVal));
+		verifyEquals(lastNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_LASTNAME_TEXTBOX, attributeVal));
 		verifyEquals(dateOfBirthVal, myAccountPage.getDateOfBirthDropDownData(MyAccountPageUI.SELECT_NAME_DATEOFBIRTH_DROPDOWN));
 		verifyEquals(dateOfMonthVal, myAccountPage.getDateOfBirthDropDownData(MyAccountPageUI.SELECT_NAME_DATEOFMONTH_DROPDOWN));
 		verifyEquals(dateOfYearVal, myAccountPage.getDateOfBirthDropDownData(MyAccountPageUI.SELECT_NAME_DATEOFYEAR_DROPDOWN));
 		verifyEquals(emailVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_EMAIL_TEXTBOX, "value"));
-		verifyEquals(companyNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_COMPANYNAME_TEXTBOX, "value"));
+		verifyEquals(companyNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_COMPANYNAME_TEXTBOX, attributeVal));
 		
 		log.info("TC01_Update_Customer_Info - Step 15 : Change Account Info with New Data");
 		myAccountPage.clickToRadioButton(MyAccountPageUI.SPAN_CLASS_GENDER_FEMALE_RADIOBUTTON);
@@ -144,22 +162,18 @@ public class FE_03_MyAccount extends AbstractTest {
 		
 		log.info("TC01_Update_Customer_Info - Step 17 : Verify Account Info is Matched with New Data");
 		//Assert.verifyEquals("",myAccountPage.isGenderButtonSelected(MyAccountPageUI.SPAN_CLASS_GENDER_MALE_RADIOBUTTON, "checked"));
-		verifyEquals(upFirstNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_FIRSTNAME_TEXTBOX, "value"));
-		verifyEquals(upLastNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_LASTNAME_TEXTBOX, "value"));
+		verifyEquals(upFirstNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_FIRSTNAME_TEXTBOX, attributeVal));
+		verifyEquals(upLastNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_LASTNAME_TEXTBOX, attributeVal));
 		verifyEquals(upDateOfBirthVal, myAccountPage.getDateOfBirthDropDownData(MyAccountPageUI.SELECT_NAME_DATEOFBIRTH_DROPDOWN));
 		verifyEquals(upDateOfMonthVal, myAccountPage.getDateOfBirthDropDownData(MyAccountPageUI.SELECT_NAME_DATEOFMONTH_DROPDOWN));
 		verifyEquals(upDateOfYearVal, myAccountPage.getDateOfBirthDropDownData(MyAccountPageUI.SELECT_NAME_DATEOFYEAR_DROPDOWN));
-		verifyEquals(upEmailVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_EMAIL_TEXTBOX, "value"));
-		verifyEquals(upCompanyNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_COMPANYNAME_TEXTBOX, "value"));
+		verifyEquals(upEmailVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_EMAIL_TEXTBOX, attributeVal));
+		verifyEquals(upCompanyNameVal, myAccountPage.getTexBoxNameData(MyAccountPageUI.INPUT_ID_COMPANYNAME_TEXTBOX, attributeVal));
 		
 	}
 
 	@Test
 	public void TC02_Update_Address() {
-
-		addFirstNameVal = "Doctor"; addLastNameVal = "Strange"; addEmailVal = "doctor_strange_2519@gmail.com"; addCompanyNameVal = "Marvel Entertainment"; addCountryVal = "Viet Nam"; 
-		addStateVal = "Other (Non US)"; addCityNameVal = "Ha Noi";  addAddress01Val = "03 Tran Thai Tong"; addAddress02Val = "09 Nguyen Huy Tuong"; addZipcodeVal = "10166"; 
-		addPhoneNumberVal = "0987654321"; addFaxNumberVal = "0123456789";
 		
 		log.info("TC02_Update_Address - Step 01 : Open Addess Form by Click to 'Address' side-menu");
 		myAccountPage.clickToAddressLink();
@@ -205,91 +219,54 @@ public class FE_03_MyAccount extends AbstractTest {
 
 	@Test
 	public void TC03_Change_Account_Password() {
-
-		emailVal = "auto@gmail.com";
-		passVal = "12345678";
-		String newPasswordVal = "123456789";
-		String changePassResultText = "Password was changed";
-		String passErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
-				"The credentials provided are incorrect";
 		
-		log.info("TC03_Change_Account_Password - Step 01 : Click to LogOut Link");
-		homePage = myAccountPage.clickToLogoutLink();
-		
-		log.info("TC03_Change_Account_Password - Step 02 : Open Login Page Through Header Login Link");
-		homePage.openHeaderDynamicPage(AbstactPageUI.A_CLASS_HEADER_LOGIN_LINK);
-		loginPage = PageGeneratorManager.getLoginPage(driver);
-		
-		log.info("TC03_Change_Account_Password - Step 03 : Login Account with valid Data");
-		loginPage.inputToEmailTextbox(emailVal);
-		loginPage.inputToPasswordTextbox(passVal);
-		
-		log.info("TC03_Change_Account_Password - Step 04 : Click to Login Button");
-		loginPage.clickToLoginButton();
-		
-		log.info("TC03_Change_Account_Password - Step 05 : Verify login success and show 'My Account' link in Header");
-		homePage = PageGeneratorManager.getHomePage(driver);
-		verifyTrue(homePage.isMyAccountLinkDisplayed());
-
-		log.info("TC03_Change_Account_Password - Step 06 : Open My Account Page Through Header My Account Link");
-		homePage.openHeaderDynamicPage(AbstactPageUI.A_CLASS_HEADER_MY_ACCOUNT_LINK);
-		myAccountPage = PageGeneratorManager.getMyAccountPage(driver);
-		
-		log.info("TC03_Change_Account_Password - Step 07 : Verify My Account Page is Displayed");
-		verifyTrue(myAccountPage.isMyAccountPageDisplayed());
-		
-		log.info("TC03_Change_Account_Password - Step 08 : Open Change Password Form by Click to 'Change Password' side-menu");
+		log.info("TC03_Change_Account_Password - Step 01 : Open Change Password Form by Click to 'Change Password' side-menu");
 		myAccountPage.clickToChangePasswordLink();
 		
-		log.info("TC03_Change_Account_Password - Step 09 : Verify Change Password Form is Displayed");
+		log.info("TC03_Change_Account_Password - Step 02 : Verify Change Password Form is Displayed");
 		verifyTrue(myAccountPage.isChangePasswordFormDisplayed());
 	
-		log.info("TC03_Change_Account_Password - Step 10 : Fill the change Password Form with Valid Data");
+		log.info("TC03_Change_Account_Password - Step 03 : Fill the change Password Form with Valid Data");
 		myAccountPage.inputToChangePasswordTextboxName(MyAccountPageUI.INPUT_ID_CHANGE_OLD_PASSWORD_TEXTBOX, passVal);
-		myAccountPage.inputToChangePasswordTextboxName(MyAccountPageUI.INPUT_ID_CHANGE_NEW_PASSWORD_TEXTBOX,newPasswordVal);
-		myAccountPage.inputToChangePasswordTextboxName(MyAccountPageUI.INPUT_ID_CHANGE_CONFIRM_NEW_PASSWORD_TEXTBOX,newPasswordVal);
+		myAccountPage.inputToChangePasswordTextboxName(MyAccountPageUI.INPUT_ID_CHANGE_NEW_PASSWORD_TEXTBOX,newPassVal);
+		myAccountPage.inputToChangePasswordTextboxName(MyAccountPageUI.INPUT_ID_CHANGE_CONFIRM_NEW_PASSWORD_TEXTBOX,newPassVal);
 		
-		log.info("TC03_Change_Account_Password - Step 11 : Click to Save Button");
+		log.info("TC03_Change_Account_Password - Step 04 : Click to Save Button");
 		myAccountPage.clickToChangePasswordButton();
 		
-		log.info("TC03_Change_Account_Password - Step 12 : Verify Change Password successfully");
+		log.info("TC03_Change_Account_Password - Step 05 : Verify Change Password successfully");
 		verifyEquals(changePassResultText, myAccountPage.getChangeNewPassResultMessageData());
 		
-		log.info("TC03_Change_Account_Password - Step 13 : Click to LogOut Account");
+		log.info("TC03_Change_Account_Password - Step 06 : Click to LogOut Account");
 		homePage = myAccountPage.clickToLogoutLink();
 		
-		log.info("TC03_Change_Account_Password - Step 14 : Open Login Page Through Header Login Link");
+		log.info("TC03_Change_Account_Password - Step 07 : Open Login Page Through Header Login Link");
 		homePage.openHeaderDynamicPage(AbstactPageUI.A_CLASS_HEADER_LOGIN_LINK);
 		loginPage = PageGeneratorManager.getLoginPage(driver);
 		
-		log.info("TC03_Change_Account_Password - Step 15 : Login with old Password");
-		loginPage.inputToEmailTextbox(emailVal);
+		log.info("TC03_Change_Account_Password - Step 08 : Login with old Password");
+		loginPage.inputToEmailTextbox(upEmailVal);
 		loginPage.inputToPasswordTextbox(passVal);
 		
-		log.info("TC03_Change_Account_Password - Step 16 : Click to Login Button");
+		log.info("TC03_Change_Account_Password - Step 09 : Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		log.info("TC03_Change_Account_Password - Step 17 : Verify Error Message in Password Field");
+		log.info("TC03_Change_Account_Password - Step 10 : Verify Error Message in Password Field");
 		verifyEquals(passErrMessage, loginPage.getLoginCommonErrorMessage());
 		
-		log.info("TC03_Change_Account_Password - Step 18 : Login with New Password");
-		loginPage.inputToEmailTextbox(emailVal);
-		loginPage.inputToPasswordTextbox(newPasswordVal);
+		log.info("TC03_Change_Account_Password - Step 11 : Login with New Password");
+		loginPage.inputToEmailTextbox(upEmailVal);
+		loginPage.inputToPasswordTextbox(newPassVal);
 		
-		log.info("TC03_Change_Account_Password - Step 19 : Click to Login Button");
+		log.info("TC03_Change_Account_Password - Step 12 : Click to Login Button");
 		loginPage.clickToLoginButton();
 		
-		log.info("TC03_Change_Account_Password - Step 20 : Verify login success and show 'My Account' link in Header");
+		log.info("TC03_Change_Account_Password - Step 13 : Verify login success and show 'My Account' link in Header");
 		homePage = PageGeneratorManager.getHomePage(driver);
 		verifyTrue(homePage.isMyAccountLinkDisplayed());
 	}
 	@Test
 	public void TC04_Product_Review() {
-		
-		String productName = "Asus N551JK-XO076H Laptop";
-		String titleVal = "Asus N551JK Review Title";
-		String descriptionVal = "Asus N551JK Review Description";
-		String addReviewResultMessage = "Product review is successfully added.";
 		
 		log.info("TC04_Product_Review - Step 01 : Hover to 'Computers' Menu and Click to 'Notebooks' link");
 		homePage.hoverToMenuBarName(HomePageUI.A_CONTAINS_TEXT_MENUBAR_COMPUTER);
@@ -307,7 +284,7 @@ public class FE_03_MyAccount extends AbstractTest {
 		verifyTrue(detailPage.isDetailPageDisplayed());
 		
 		log.info("TC04_Product_Review - Step 05 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(productName, detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_ASUS_N551_NAME));
+		verifyEquals(asusProductName, detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_ASUS_N551_NAME));
 		
 		log.info("TC04_Product_Review - Step 06 : Click to Open Asus N551 Product Review Page");
 		detailPage.openDynamicPage(AbstactPageUI.A_CONTAINS_TEXT_ADD_YOUR_REVIEW_LINK);
@@ -317,11 +294,11 @@ public class FE_03_MyAccount extends AbstractTest {
 		verifyTrue(productReviewPage.isProductReviewPageDisplayed());
 		
 		log.info("TC04_Product_Review - Step 07 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(productName, productReviewPage.getProductReviewNameData(AbstactPageUI.A_CONTAINS_TEXT_NOTERBOOKS_ASUS_N551_PRODUCT));
+		verifyEquals(asusProductName, productReviewPage.getProductReviewNameData(AbstactPageUI.A_CONTAINS_TEXT_NOTERBOOKS_ASUS_N551_PRODUCT));
 		
 		log.info("TC04_Product_Review - Step 08 : Fill revied Form with Valid Data");
-		productReviewPage.inputToReviewTitleTexbox(titleVal);
-		productReviewPage.inputToReviewDescriptionTextarea(descriptionVal);
+		productReviewPage.inputToReviewTitleTexbox(asusTitleVal);
+		productReviewPage.inputToReviewDescriptionTextarea(asusDescriptionVal);
 		
 		log.info("TC04_Product_Review - Step 09 : Click to Submit Review Button");
 		productReviewPage.clickToSubmitReviewButton();
@@ -343,14 +320,14 @@ public class FE_03_MyAccount extends AbstractTest {
 		verifyTrue(myAccountPage.isMyProductReviewFormDisplayed());
 		
 		log.info("TC04_Product_Review - Step 15 : Verify Recent New Review is Displayed");
-		verifyTrue(myAccountPage.isMyProductReviewTitleDisplayed(titleVal));
-		verifyTrue(myAccountPage.isMyProductReviewDescriptionDisplayed(descriptionVal));
-		verifyTrue(myAccountPage.isMyProductReviewInfoDisplayed(productName));
+		verifyTrue(myAccountPage.isMyProductReviewTitleDisplayed(asusTitleVal));
+		verifyTrue(myAccountPage.isMyProductReviewDescriptionDisplayed(asusDescriptionVal));
+		verifyTrue(myAccountPage.isMyProductReviewInfoDisplayed(asusProductName));
 	}
 	
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

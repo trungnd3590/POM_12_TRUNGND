@@ -39,12 +39,12 @@ public class LoginPageObject extends AbstractPage {
 	}
 
 	public void clickToLoginButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC, LoginPageUI.INPUT_CLASS_LOGIN_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC, LoginPageUI.INPUT_CLASS_LOGIN_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC, LoginPageUI.INPUT_CLASS_LOGIN_BUTTON);
 	}
 	
 	public HomePageObject openHomepageByClickToLoginButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC, LoginPageUI.INPUT_CLASS_LOGIN_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC, LoginPageUI.INPUT_CLASS_LOGIN_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC, LoginPageUI.INPUT_CLASS_LOGIN_BUTTON);
 		return PageGeneratorManager.getHomePage(driver);
 	}

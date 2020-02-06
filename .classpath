@@ -40,14 +40,14 @@
 	<classpathentry kind="lib" path="libs/mockito-core-1.10.8.jar"/>
 	<classpathentry kind="lib" path="libs/owner-1.0.8.jar"/>
 	<classpathentry kind="lib" path="libs/reportng-1.1.4.jar"/>
-	<classpathentry kind="lib" path="libs/slf4j-api-1.7.24.jar"/>
 	<classpathentry kind="lib" path="libs/snakeyaml-1.15.jar"/>
 	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.8.11.1.jar"/>
 	<classpathentry kind="lib" path="libs/velocity-dep-1.5.jar"/>
-	<classpathentry kind="lib" path="libs/webdrivermanager-3.6.0.jar"/>
 	<classpathentry kind="lib" path="libs/bson-3.3.0.jar"/>
 	<classpathentry kind="lib" path="libs/extentreports-4.0.9.jar"/>
 	<classpathentry kind="lib" path="libs/httpmime-4.5.2.jar"/>
 	<classpathentry kind="lib" path="libs/mongodb-driver-3.3.0.jar"/>
+	<classpathentry kind="lib" path="libs/webdrivermanager-3.7.1.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-api-1.7.30.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

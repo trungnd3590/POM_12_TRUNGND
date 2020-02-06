@@ -20,7 +20,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class ExtentTestListenerv4 implements IReporter {
+public class ExtentReportListenerv4 implements IReporter {
 	private ExtentReports extent;
 	private ExtentHtmlReporter htmlReport;
 

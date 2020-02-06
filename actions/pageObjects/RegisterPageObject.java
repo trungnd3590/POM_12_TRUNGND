@@ -15,7 +15,7 @@ public class RegisterPageObject extends AbstractPage {
 	}
 
 	public void clickToMaleRadioButton(){
-		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_ID_DYNAMIC,RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
 		clickToElement(AbstactPageUI.INPUT_ID_DYNAMIC,RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
 	}
 	
@@ -65,7 +65,7 @@ public class RegisterPageObject extends AbstractPage {
 	}
 
 	public void clickToRadioButton(String locatorName) {
-		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,locatorName);
+		waitForElementClickable(AbstactPageUI.INPUT_ID_DYNAMIC,locatorName);
 		clickToElement(AbstactPageUI.INPUT_ID_DYNAMIC,locatorName);
 	}
 
@@ -80,7 +80,7 @@ public class RegisterPageObject extends AbstractPage {
 	}
 
 	public void clickToRegisterButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,RegisterPageUI.INPUT_ID_REGISTER_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_ID_DYNAMIC,RegisterPageUI.INPUT_ID_REGISTER_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_ID_DYNAMIC,RegisterPageUI.INPUT_ID_REGISTER_BUTTON);
 	}
 

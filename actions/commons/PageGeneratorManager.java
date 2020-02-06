@@ -2,6 +2,8 @@ package commons;
 
 import org.openqa.selenium.WebDriver;
 
+import pageObjects.AdminLoginPageObject;
+import pageObjects.AdminPageObject;
 import pageObjects.DesktopPageObject;
 import pageObjects.DetailPageObject;
 import pageObjects.HomePageObject;
@@ -69,4 +71,14 @@ public class PageGeneratorManager {
 	public static ShoppingCartPageObject getShoppingCartPage(WebDriver driver) {
 		return new ShoppingCartPageObject(driver);
 	}
+	
+	public static AdminLoginPageObject getAdminLoginPage(WebDriver driver) {
+		return new AdminLoginPageObject(driver);
+	}
+	
+	public static AdminPageObject getAdminPage(WebDriver driver) {
+		return new AdminPageObject(driver);
+	}
+	
+	
 }

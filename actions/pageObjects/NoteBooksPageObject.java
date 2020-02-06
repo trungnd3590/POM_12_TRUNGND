@@ -67,7 +67,7 @@ public class NoteBooksPageObject extends AbstractPage{
 	}
 	
 	public void clickToPageTwo() {
-		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,NoteBooksPageUI.A_CONTAINS_TEXT_NOTEBOOKS_PAGE_TWO_BUTTON);
+		waitForElementClickable(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,NoteBooksPageUI.A_CONTAINS_TEXT_NOTEBOOKS_PAGE_TWO_BUTTON);
 		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,NoteBooksPageUI.A_CONTAINS_TEXT_NOTEBOOKS_PAGE_TWO_BUTTON);
 	}
 	
@@ -77,7 +77,7 @@ public class NoteBooksPageObject extends AbstractPage{
 	}
 	
 	public void addProductToCompare(String locatorName) {
-		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_ADD_TO_COMPARE_DYNAMIC,locatorName);
+		waitForElementClickable(AbstactPageUI.A_CONTAINS_TEXT_ADD_TO_COMPARE_DYNAMIC,locatorName);
 		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_ADD_TO_COMPARE_DYNAMIC,locatorName);
 	}
 	

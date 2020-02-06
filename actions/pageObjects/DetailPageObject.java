@@ -24,7 +24,7 @@ public class DetailPageObject extends AbstractPage{
 	}
 	
 	public void clickToWishListButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,DetailPageUI.INPUT_ID_DETAIL_PAGE_ADD_TO_WISHLIST_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_ID_DYNAMIC,DetailPageUI.INPUT_ID_DETAIL_PAGE_ADD_TO_WISHLIST_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_ID_DYNAMIC,DetailPageUI.INPUT_ID_DETAIL_PAGE_ADD_TO_WISHLIST_BUTTON);
 	}
 	
@@ -34,7 +34,7 @@ public class DetailPageObject extends AbstractPage{
 	}
 	
 	public void clickToRadioButton(String locatorName) {
-		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,locatorName);
+		waitForElementClickable(AbstactPageUI.INPUT_ID_DYNAMIC,locatorName);
 		clickToElement(AbstactPageUI.INPUT_ID_DYNAMIC,locatorName);
 	}
 	
@@ -54,7 +54,7 @@ public class DetailPageObject extends AbstractPage{
 	}
 	
 	public void clickToAddToCartButton() {
-		waitForElementVisible(DetailPageUI.DETAIL_PAGE_ADD_TO_CART_BUTTON);
+		waitForElementClickable(DetailPageUI.DETAIL_PAGE_ADD_TO_CART_BUTTON);
 		clickToElement(DetailPageUI.DETAIL_PAGE_ADD_TO_CART_BUTTON);
 	}
 	
@@ -69,12 +69,12 @@ public class DetailPageObject extends AbstractPage{
 	}
 	
 	public void clickToNotificationBarCloseButton() {
-		waitForElementVisible(AbstactPageUI.SPAN_CLASS_DYNAMIC,DetailPageUI.SPAN_CLASS_DETAIL_PAGE_NOTIFCATION_BAR_CLOSE_BUTTON);
+		waitForElementClickable(AbstactPageUI.SPAN_CLASS_DYNAMIC,DetailPageUI.SPAN_CLASS_DETAIL_PAGE_NOTIFCATION_BAR_CLOSE_BUTTON);
 		clickToElement(AbstactPageUI.SPAN_CLASS_DYNAMIC,DetailPageUI.SPAN_CLASS_DETAIL_PAGE_NOTIFCATION_BAR_CLOSE_BUTTON);
 	}
 	
 	public void clickToMiniShoppingCartButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC, AbstactPageUI.INPUT_CLASS_MINI_SHOPPING_CART_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC, AbstactPageUI.INPUT_CLASS_MINI_SHOPPING_CART_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC, AbstactPageUI.INPUT_CLASS_MINI_SHOPPING_CART_BUTTON);
 	}
 	

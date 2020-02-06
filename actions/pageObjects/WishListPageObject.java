@@ -24,7 +24,7 @@ public class WishListPageObject extends AbstractPage{
 	}
 	
 	public void clickToWishListShareLink() {
-		waitForElementVisible(AbstactPageUI.A_CLASS_DYNAMIC,WishListPageUI.A_CLASS_WISHLIST_PAGE_SHARE_LINK);
+		waitForElementClickable(AbstactPageUI.A_CLASS_DYNAMIC,WishListPageUI.A_CLASS_WISHLIST_PAGE_SHARE_LINK);
 		clickToElement(AbstactPageUI.A_CLASS_DYNAMIC,WishListPageUI.A_CLASS_WISHLIST_PAGE_SHARE_LINK);
 	}
 
@@ -44,12 +44,12 @@ public class WishListPageObject extends AbstractPage{
 	}
 	
 	public void clickToAddToCartButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_NAME_DYNAMIC,WishListPageUI.INPUT_NAME_WISHLIST_PAGE_ADD_TO_CART_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_NAME_DYNAMIC,WishListPageUI.INPUT_NAME_WISHLIST_PAGE_ADD_TO_CART_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_NAME_DYNAMIC,WishListPageUI.INPUT_NAME_WISHLIST_PAGE_ADD_TO_CART_BUTTON);
 	}
 	
 	public void clickToUpdateWishListButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_NAME_DYNAMIC,WishListPageUI.INPUT_NAME_WISHLIST_PAGE_UPDATE_WISHLIST_CHECKBOX);
+		waitForElementClickable(AbstactPageUI.INPUT_NAME_DYNAMIC,WishListPageUI.INPUT_NAME_WISHLIST_PAGE_UPDATE_WISHLIST_CHECKBOX);
 		clickToElement(AbstactPageUI.INPUT_NAME_DYNAMIC,WishListPageUI.INPUT_NAME_WISHLIST_PAGE_UPDATE_WISHLIST_CHECKBOX);
 	}
 	

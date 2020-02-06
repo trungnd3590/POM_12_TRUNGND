@@ -39,7 +39,7 @@ public class FE_07_Orders extends AbstractTest {
 	private ShoppingCartPageObject shoppingCartPage;
 	private MyAccountPageObject myAccountPage;
 	
-	String emailVal,passVal;
+	private String emailVal,passVal;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -51,13 +51,14 @@ public class FE_07_Orders extends AbstractTest {
 		driver.manage().window().maximize();
 
 		String pageUrl = "https://demo.nopcommerce.com/";
+		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
 	}
 
 	@Test
 	public void TC01_Add_Product_To_Cart() throws Exception {
 		
-		emailVal = "auto01@gmail.com";
+		emailVal = "automationfc.vn@gmail.com";
 		passVal = "123456";
 		String productName = "Build your own computer";
 		String processorVal = "2.5 GHz Intel Pentium Dual-Core E2200 [+$15.00]";
@@ -102,14 +103,17 @@ public class FE_07_Orders extends AbstractTest {
 		log.info("TC01_Add_Product_To_Cart - Step 07 : Open and Verify Desktop Page is Displayed");
 		desktopPage = PageGeneratorManager.getDesktopPage(driver);
 		verifyTrue(desktopPage.isDesktopPageDisplayed());
-		
+
 		log.info("TC01_Add_Product_To_Cart - Step 08 : Click to Open 'Build your own Computer' Product");
 		desktopPage.openDetailDynamicPage(AbstactPageUI.A_CONTAINS_TEXT_DESKTOPS_BUILD_YOUR_OWN_COMPUTER);
-		
-		log.info("TC01_Add_Product_To_Cart - Step 09 : Verify 'Build your own Computer' Product Detail Page is Displayed");
+
+		log.info(
+				"TC01_Add_Product_To_Cart - Step 09 : Verify 'Build your own Computer' Product Detail Page is Displayed");
 		detailPage = PageGeneratorManager.getDetailPage(driver);
-		verifyEquals(detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_BUILD_YOUR_COMPUTERS_NAME), productName);
-		
+		verifyEquals(
+				detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_BUILD_YOUR_COMPUTERS_NAME),
+				productName);
+
 		log.info("TC01_Add_Product_To_Cart - Step 10 : Fill the Data in 'Build your own Computer' Product Detail Page");
 		detailPage.selectDataFromDropdown(processorVal, DetailPageUI.SELECT_ID_PROCESSOR_DROPDOWN);
 		detailPage.selectDataFromDropdown(ramVal, DetailPageUI.SELECT_ID_RAM_DROPDOWN);
@@ -117,56 +121,36 @@ public class FE_07_Orders extends AbstractTest {
 		detailPage.clickToRadioButton(DetailPageUI.INPUT_ID_OS_VISTA_PREMIUM_RADIO_BUTTON);
 		detailPage.clickToCheckbox(DetailPageUI.INPUT_ID_SOFTWARE_ACROBAT_CHECKBOX);
 		detailPage.clickToCheckbox(DetailPageUI.INPUT_ID_SOFTWARE_TOTAL_COMMANDER_CHECKBOX);
-		
+
 		log.info("TC01_Add_Product_To_Cart - Step 11 : Get Unit Price Data");
 		totalPriceVal = detailPage.getUnitPriceData();
-		
+
 		log.info("TC01_Add_Product_To_Cart - Step 12 : Click to Add To Cart Button");
 		detailPage.clickToAddToCartButton();
-		
+
 		log.info("TC01_Add_Product_To_Cart - Step 13 : Verify Add to Cart success notification message is Displayed");
 		verifyTrue(detailPage.isDetailPageSuccesNotificationBarDisplayed());
 		verifyEquals(detailPage.getDetailPageSuccesNotificationBarData(), shoppingCartAddSuccessMessage);
-		
-		/*
-		 * Thread.sleep(3000); detailPage.clickToNotificationBarCloseButton();
-		 * Thread.sleep(3000); detailPage.hoverToHeaderShoppingCart();
-		 * Thread.sleep(3000);
-		 * verifyTrue(detailPage.isMiniShoppingCartDisplayed());
-		 * verifyEquals(detailPage.getMiniShoppingCartByValue(AbstactPageUI.
-		 * DIV_CLASS_DYNAMIC, AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART_COUNTS),
-		 * miniShoppingCartCount); verifyEquals(AbstactPageUI.DIV_CLASS_DYNAMIC,
-		 * AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART_NAME, productName);
-		 * verifyEquals(AbstactPageUI.SHOPPING_CART_HEADER_ATTRIBUTES,
-		 * miniShoppingCartAttibutes);
-		 * verifyEquals(AbstactPageUI.DIV_CLASS_DYNAMIC,
-		 * AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART_PRICE, miniShoppingCartPrice);
-		 * verifyEquals(AbstactPageUI.DIV_CLASS_DYNAMIC,
-		 * AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART_QUANTITY,
-		 * miniShoppingCartQuantity);
-		 * verifyEquals(AbstactPageUI.DIV_CLASS_DYNAMIC,
-		 * AbstactPageUI.DIV_CLASS_MINI_SHOPPING_CART_TOTALS, miniShoppingCartTotals);
-		 */
-		/*
-		 * detailPage.clickToMiniShoppingCartButton(); shoppingCardPage =
-		 * PageGeneratorManager.getShoppingCartPage(driver);
-		 */
-		
-		  log.info("TC01_Add_Product_To_Cart - Step 14 :  Open Shopping Cart Page Through Header Shopping Cart Link");	
-		  detailPage.openDynamicPage(DetailPageUI.A_CONTAINS_TEXT_SHOPPING_CART_NOTIFICATION_BAR); 
-		  
-		  log.info("TC01_Add_Product_To_Cart - Step 15 : Verify Shopping Cart Page is Displayed");
-		  shoppingCartPage = PageGeneratorManager.getShoppingCartPage(driver);
-		  verifyTrue(shoppingCartPage.isShoppingCartPageDisplayed());
-		  
-		  log.info("TC01_Add_Product_To_Cart - Step 16 : Verify Product Data is Displayed and Matched");
-		  verifyEquals(shoppingCartPage.getShoppingCartPageTitle(),shoppingCartPageTitle);
-		  verifyEquals(shoppingCartPage.getShoppingCartProductNameData(ShoppingCartPageUI.A_CLASS_SHOPPING_CART_PAGE_PRODUCT_NAME), productName);
-		  verifyEquals(shoppingCartPage.getShoppingCartProductData(ShoppingCartPageUI.PRODUCT_DETAIL),miniShoppingCartAttibutes);
-		  verifyEquals(shoppingCartPage.getShoppingCartProductData(ShoppingCartPageUI.PRODUCT_UNIT_PRICE_TEXT), miniShoppingCartPrice);
-		  verifyEquals(shoppingCartPage.getShoppingCartQuantityData("value"), miniShoppingCartQuantity);
-		  verifyEquals(shoppingCartPage.getShoppingCartProductData(AbstactPageUI.SPAN_CLASS_DYNAMIC, ShoppingCartPageUI.SPAN_CLASS_PRODUCT_SUB_TOTAL_TEXT), miniShoppingCartTotals);
-		 
+
+		log.info("TC01_Add_Product_To_Cart - Step 14 :  Open Shopping Cart Page Through Header Shopping Cart Link");
+		detailPage.openDynamicPage(DetailPageUI.A_CONTAINS_TEXT_SHOPPING_CART_NOTIFICATION_BAR);
+
+		log.info("TC01_Add_Product_To_Cart - Step 15 : Verify Shopping Cart Page is Displayed");
+		shoppingCartPage = PageGeneratorManager.getShoppingCartPage(driver);
+		verifyTrue(shoppingCartPage.isShoppingCartPageDisplayed());
+
+		log.info("TC01_Add_Product_To_Cart - Step 16 : Verify Product Data is Displayed and Matched");
+		verifyEquals(shoppingCartPage.getShoppingCartPageTitle(), shoppingCartPageTitle);
+		verifyEquals(shoppingCartPage.getShoppingCartProductNameData(
+				ShoppingCartPageUI.A_CLASS_SHOPPING_CART_PAGE_PRODUCT_NAME), productName);
+		verifyEquals(shoppingCartPage.getShoppingCartProductData(ShoppingCartPageUI.PRODUCT_DETAIL),
+				miniShoppingCartAttibutes);
+		verifyEquals(shoppingCartPage.getShoppingCartProductData(ShoppingCartPageUI.PRODUCT_UNIT_PRICE_TEXT),
+				miniShoppingCartPrice);
+		verifyEquals(shoppingCartPage.getShoppingCartQuantityData("value"), miniShoppingCartQuantity);
+		verifyEquals(shoppingCartPage.getShoppingCartProductData(AbstactPageUI.SPAN_CLASS_DYNAMIC,
+				ShoppingCartPageUI.SPAN_CLASS_PRODUCT_SUB_TOTAL_TEXT), miniShoppingCartTotals);
+
 	}
 	
 	@Test
@@ -1222,9 +1206,9 @@ public class FE_07_Orders extends AbstractTest {
 		
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

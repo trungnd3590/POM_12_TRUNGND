@@ -26,6 +26,7 @@ import org.testng.annotations.Parameters;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.annotations.AfterClass;
 
 public class FE_06_WishList_Compare_RecentView extends AbstractTest {
@@ -40,7 +41,13 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 	private ProductComparePageObject productComparePage;
 	private RecentViewProductPageObject recentViewProductPage;
 	
-	String emailVal,passVal;
+	private String emailVal,passVal;
+	private String asusProductName,asusPrice,asusScreenSize,asusCPU;
+	private String macBookProductName,macBookPrice,macBookScreenSize,macBookCPU;
+	private String hpEnvyProductName,hpSpectreProductName,lenovoThinkPadProductName;
+	private String addToWishlistMessage,wishListNameTitle,wishListTitle,wishListEmptyMessage;
+	private String shoppingCartTitle;
+	private String addToCompareMessage,productComparePageTitle,noDataMessage;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -51,18 +58,35 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
+		emailVal = "automationfc.vn@gmail.com";
+		passVal = "123456";
+		
+		asusProductName = "Asus N551JK-XO076H Laptop"; 	asusPrice = "$1,500.00"; asusScreenSize = "15.6''"; asusCPU = "Intel Core i7";
+		
+		macBookProductName = "Apple MacBook Pro 13-inch"; macBookPrice = "$1,800.00"; macBookScreenSize = "13.0''"; macBookCPU = "Intel Core i5";
+		
+		hpEnvyProductName = "HP Envy 6-1180ca 15.6-Inch Sleekbook";
+		hpSpectreProductName = "HP Spectre XT Pro UltraBook";
+		lenovoThinkPadProductName = "Lenovo Thinkpad X1 Carbon Laptop";
+		
+		addToWishlistMessage = "The product has been added to your wishlist";
+		wishListNameTitle = "Wishlist of John Wick";
+		wishListTitle = "Wishlist";
+		wishListEmptyMessage = "The wishlist is empty!";
+		
+		shoppingCartTitle = "Shopping cart";
+		
+		addToCompareMessage = "The product has been added to your product comparison";
+		productComparePageTitle = "Compare products";
+		noDataMessage = "You have no items to compare.";
+		
 		String pageUrl = "https://demo.nopcommerce.com/";
+		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
 	}
 
 	@Test
 	public void TC01_Add_To_WishList() {
-		
-		String productName = "Asus N551JK-XO076H Laptop";
-		String succesNotificationBar = "The product has been added to your wishlist";
-		String wishListTitle = "Wishlist of auto mation";
-		emailVal = "auto01@gmail.com";
-		passVal = "123456";
 		
 		log.info("TC01_Add_To_WishList - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
@@ -98,14 +122,14 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		verifyTrue(detailPage.isDetailPageDisplayed());
 		
 		log.info("TC01_Add_To_WishList - Step 10 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(productName, detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_ASUS_N551_NAME));
+		verifyEquals(asusProductName, detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_ASUS_N551_NAME));
 		
 		log.info("TC01_Add_To_WishList - Step 11 : Click to WishList Button");
 		detailPage.clickToWishListButton();
 		
 		log.info("TC01_Add_To_WishList - Step 12 : Verify Add to Wishlist success notification message is Displayed");
 		verifyTrue(detailPage.isDetailPageSuccesNotificationBarDisplayed());
-		verifyEquals(detailPage.getDetailPageSuccesNotificationBarData(), succesNotificationBar);
+		verifyEquals(detailPage.getDetailPageSuccesNotificationBarData(), addToWishlistMessage);
 		
 		log.info("TC01_Add_To_WishList - Step 13 : Click to Notification Close Button");
 		detailPage.clickToNotificationBarCloseButton();
@@ -118,13 +142,13 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		verifyTrue(wishListPage.isWishListPageDisplayed());
 		
 		log.info("TC01_Add_To_WishList - Step 16 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(wishListPage.getWishListProductNameData(WishListPageUI.A_CLASS_WISHLIST_PAGE_PRODUCT_NAME), productName);
+		verifyEquals(wishListPage.getWishListProductNameData(WishListPageUI.A_CLASS_WISHLIST_PAGE_PRODUCT_NAME), asusProductName);
 		
 		log.info("TC01_Add_To_WishList - Step 17 : Click to Wishlist Share Button");
 		wishListPage.clickToWishListShareLink();
 		
 		log.info("TC01_Add_To_WishList - Step 18 : Verify Wishlist Share Link Title is Displayed");
-		verifyEquals(wishListPage.getWishListShareLinkTitleData(), wishListTitle);
+		verifyEquals(wishListPage.getWishListShareLinkTitleData(), wishListNameTitle);
 		
 		log.info("TC01_Add_To_WishList - Step 19 : Click back to Previoud Page");
 		wishListPage.backToPage();
@@ -132,11 +156,6 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 	
 	@Test
 	public void TC02_Add_Product_To_Cart_From_WishList_Page() {
-		
-		String shoppingCartTitle = "Shopping cart";
-		String wishListTitle = "Wishlist";
-		String wishListEmptyMessage = "The wishlist is empty!";
-		String productName = "Asus N551JK-XO076H Laptop";
 		
 		log.info("TC02_Add_Product_To_Cart_From_WishList_Page - Step 01 : Click to Add To Cart Check box");
 		wishListPage.clickToAddToCartCheckbox();
@@ -148,7 +167,7 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		verifyEquals(wishListPage.getWishListShareLinkTitleData(), shoppingCartTitle);
 		
 		log.info("TC02_Add_Product_To_Cart_From_WishList_Page - Step 04 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(wishListPage.getWishListProductNameData(WishListPageUI.A_CLASS_WISHLIST_PAGE_PRODUCT_NAME), productName);
+		verifyEquals(wishListPage.getWishListProductNameData(WishListPageUI.A_CLASS_WISHLIST_PAGE_PRODUCT_NAME), asusProductName);
 		
 		log.info("TC02_Add_Product_To_Cart_From_WishList_Page - Step 05 :  Open WishList Page Through Footer Wishlist Link");
 		wishListPage.openFooterDynamicPage(AbstactPageUI.A_CONTAINS_TEXT_FOOTER_WISHLIST_LINK);
@@ -162,10 +181,6 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 	
 	@Test
 	public void TC03_Remove_Product_In_WishList_Page() {
-		
-		String productName = "Asus N551JK-XO076H Laptop";
-		String succesNotificationBar = "The product has been added to your wishlist";
-		String wishListEmptyMessage = "The wishlist is empty!";
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 01 : Hover to 'Computers' Menu and Click to 'Notebooks' link");
 		wishListPage.hoverToMenuBarName(HomePageUI.A_CONTAINS_TEXT_MENUBAR_COMPUTER);
@@ -183,14 +198,14 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		verifyTrue(detailPage.isDetailPageDisplayed());
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 05 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(productName, detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_ASUS_N551_NAME));
+		verifyEquals(asusProductName, detailPage.getProductDetailTitleData(DetailPageUI.H1_CONTAINS_TEXT_PRODUCT_ASUS_N551_NAME));
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 06 : Click to WishList Button");
 		detailPage.clickToWishListButton();
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 07 : Verify Add to Wishlist success notification message is Displayed");
 		verifyTrue(detailPage.isDetailPageSuccesNotificationBarDisplayed());
-		verifyEquals(detailPage.getDetailPageSuccesNotificationBarData(), succesNotificationBar);
+		verifyEquals(detailPage.getDetailPageSuccesNotificationBarData(), addToWishlistMessage);
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 08 : Click to Notification Close Button");
 		detailPage.clickToNotificationBarCloseButton();
@@ -203,7 +218,7 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		verifyTrue(wishListPage.isWishListPageDisplayed());
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 11 : Verify Asus N551 Product Name is Matched");
-		verifyEquals(wishListPage.getWishListProductNameData(WishListPageUI.A_CLASS_WISHLIST_PAGE_PRODUCT_NAME), productName);
+		verifyEquals(wishListPage.getWishListProductNameData(WishListPageUI.A_CLASS_WISHLIST_PAGE_PRODUCT_NAME), asusProductName);
 		
 		log.info("TC03_Remove_Product_In_WishList_Page - Step 12 : Click to Remove Product Check box");
 		wishListPage.clickToRemoveCheckbox();
@@ -222,18 +237,6 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 	@Test
 	public void TC04_Add_Product_To_Compare() {
 		
-		String addToCartMessage = "The product has been added to your product comparison";
-		String productComparePageTitle = "Compare products";
-		String noDataMessage = "You have no items to compare.";
-		String asusName = "Asus N551JK-XO076H Laptop";
-		String asusPrice = "$1,500.00";
-		String asusScreenSize = "15.6''";
-		String asusCPU = "Intel Core i7";
-		String macBookName = "Apple MacBook Pro 13-inch";
-		String macBookPrice = "$1,800.00";
-		String macBookScreenSize = "13.0''";
-		String macBookCPU = "Intel Core i5";
-		
 		log.info("TC04_Add_Product_To_Compare - Step 01 : Open HomePage by click to HomePage Icon");
 		homePage = wishListPage.clickHomePageIcon();
 		
@@ -250,27 +253,29 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		
 		log.info("TC04_Add_Product_To_Compare - Step 05 : Verify Add to Compare success notification message is Displayed");
 		verifyTrue(noteBooksPage.isNoteBookPageSuccesNotificationBarDisplayed());
-		verifyEquals(noteBooksPage.getNoteBookPageSuccesNotificationBarData(), addToCartMessage);
+		verifyEquals(noteBooksPage.getNoteBookPageSuccesNotificationBarData(), addToCompareMessage);
 		
 		log.info("TC04_Add_Product_To_Compare - Step 06 : Click and Add Asus N551 to Compare");
 		noteBooksPage.addProductToCompare(NoteBooksPageUI.A_CONTAINS_TEXT_ADD_TO_COMPARE_ASUS_N551_BUTTON);
 		
 		log.info("TC04_Add_Product_To_Compare - Step 07 : Verify Add to Compare success notification message is Displayed");
 		verifyTrue(noteBooksPage.isNoteBookPageSuccesNotificationBarDisplayed());
-		verifyEquals(noteBooksPage.getNoteBookPageSuccesNotificationBarData(), addToCartMessage);
+		verifyEquals(noteBooksPage.getNoteBookPageSuccesNotificationBarData(), addToCompareMessage);
 		
 		log.info("TC04_Add_Product_To_Compare - Step 08 : Open Product Compare Page Through Success Notification Link");
 		noteBooksPage.openDynamicPage(AbstactPageUI.A_CONTAINS_TEXT_ADD_TO_COMPARE_NOTIFICATION_BAR);
 		productComparePage = PageGeneratorManager.getProductComparePage(driver);
 		
+		sleepInSecond(5);
 		log.info("TC04_Add_Product_To_Compare - Step 09 : Verify Product Compare Page is Displayed");
 		verifyEquals(productComparePage.getProductComparePageTitleData(), productComparePageTitle);
 		
+		sleepInSecond(5);
 		log.info("TC04_Add_Product_To_Compare - Step 10 : Verify Product Compare Data is Displayed and Matched");
 		verifyTrue(productComparePage.isNumberOfRemoveButtonMatched(2));
 		verifyTrue(productComparePage.isNumberOfProductMatched(2));
-		verifyTrue(productComparePage.isProductNameDisplayed(asusName));
-		verifyTrue(productComparePage.isProductNameDisplayed(macBookName));
+		verifyTrue(productComparePage.isProductNameDisplayed(asusProductName));
+		verifyTrue(productComparePage.isProductNameDisplayed(macBookProductName));
 		verifyTrue(productComparePage.isNumberOfProductMatchedByRowName(2, ProductComparePageUI.A_CONTAINS_TEXT_PRODUCT_COMPARE_PRICE_TEXT));
 		verifyTrue(productComparePage.isProductInfoDisplayedByRowName(asusPrice, ProductComparePageUI.A_CONTAINS_TEXT_PRODUCT_COMPARE_PRICE_TEXT));
 		verifyTrue(productComparePage.isProductInfoDisplayedByRowName(macBookPrice,ProductComparePageUI.A_CONTAINS_TEXT_PRODUCT_COMPARE_PRICE_TEXT));
@@ -294,13 +299,6 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 	
 	@Test
 	public void TC05_Recent_View_Product() {
-		
-		String asusName = "Asus N551JK-XO076H Laptop";
-		String macBookName = "Apple MacBook Pro 13-inch";
-		String hpEnvyName = "HP Envy 6-1180ca 15.6-Inch Sleekbook";
-		String hpSpectreName = "HP Spectre XT Pro UltraBook";
-		String lenovoThinkPadName = "Lenovo Thinkpad X1 Carbon Laptop";
-		String recentViewProduct = "Recently viewed products";
 		
 		log.info("TC05_Recent_View_Product - Step 01 : Open HomePage by click to HomePage Icon");
 		homePage = productComparePage.clickHomePageIcon();
@@ -390,14 +388,14 @@ public class FE_06_WishList_Compare_RecentView extends AbstractTest {
 		
 		log.info("TC05_Recent_View_Product - Step 24 : Verify 3 Recent View Products are Displayed");
 		verifyTrue(recentViewProductPage.isNumberOfProductNameMatched(3));
-		verifyTrue(recentViewProductPage.isProductNameDisplayed(hpEnvyName));
-		verifyTrue(recentViewProductPage.isProductNameDisplayed(hpSpectreName));
-		verifyTrue(recentViewProductPage.isProductNameDisplayed(lenovoThinkPadName));
+		verifyTrue(recentViewProductPage.isProductNameDisplayed(hpEnvyProductName));
+		verifyTrue(recentViewProductPage.isProductNameDisplayed(hpSpectreProductName));
+		verifyTrue(recentViewProductPage.isProductNameDisplayed(lenovoThinkPadProductName));
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

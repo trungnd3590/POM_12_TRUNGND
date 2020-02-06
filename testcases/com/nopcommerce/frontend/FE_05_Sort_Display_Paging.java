@@ -28,7 +28,8 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	private NoteBooksPageObject noteBooksPage;
 	private LoginPageObject loginPage;
 	
-	String emailVal,passVal;
+	private String emailVal,passVal,sortAtoZ,sortZtoA,sortPriceLowToHigh,sortPriceHighToLow,dropdownVal;
+	private int numberPerPage;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -39,6 +40,13 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
+		emailVal = "automationfc.vn@gmail.com";
+		passVal = "123456";
+		sortAtoZ = "Name: A to Z";
+		sortZtoA = "Name: Z to A";
+		sortPriceLowToHigh = "Price: Low to High";
+		sortPriceHighToLow = "Price: High to Low";
+		
 		String pageUrl = "https://demo.nopcommerce.com/";
 		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
@@ -46,10 +54,6 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 
 	@Test
 	public void TC01_Sort_Name_A_To_Z() {
-		
-		emailVal = "auto01@gmail.com";
-		passVal = "123456";
-		String sortAtoZ = "Name: A to Z";
 		
 		log.info("TC01_Sort_Name_A_To_Z - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
@@ -87,8 +91,6 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	@Test
 	public void TC02_Sort_Name_Z_To_A() {
 		
-		String sortZtoA = "Name: Z to A";
-		
 		log.info("TC02_Sort_Name_Z_To_A - Step 01 : Sort Name Z to A from Sort Dropdown List");
 		noteBooksPage.selectSortFromDropdown(sortZtoA);
 		
@@ -98,8 +100,6 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	
 	@Test
 	public void TC03_Sort_Price_Low_To_High() {
-		
-		String sortPriceLowToHigh = "Price: Low to High";
 		
 		log.info("TC03_Sort_Price_Low_To_High - Step 01 : Sort Price Low to High from Sort Dropdown List");
 		noteBooksPage.selectSortFromDropdown(sortPriceLowToHigh);
@@ -111,8 +111,6 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	@Test
 	public void TC04_Sort_Price_High_To_Low() {
 		
-		String sortPriceHighToLow = "Price: High to Low";
-		
 		log.info("TC04_Sort_Price_High_To_Low - Step 01 : Sort Price High to Low from Sort Dropdown List");
 		noteBooksPage.selectSortFromDropdown(sortPriceHighToLow);
 		
@@ -123,8 +121,8 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	@Test
 	public void TC05_Display_Three_Products_Per_Page() {
 		
-		String dropdownVal = "3";
-		int numberPerPage = 3;
+		dropdownVal = "3";
+		numberPerPage = 3;
 		
 		log.info("TC05_Display_Three_Products_Per_Page - Step 01 : Input 3 in Product Display Per Page Dropdown List");
 		noteBooksPage.selectProductDisplayPerPageFromDropdown(dropdownVal);
@@ -149,8 +147,8 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	@Test
 	public void TC06_Display_Six_Products_Per_Page() {
 		
-		String dropdownVal = "6";
-		int numberPerPage = 6;
+		dropdownVal = "6";
+		numberPerPage = 6;
 		
 		log.info("TC06_Display_Six_Products_Per_Page - Step 01 : Input 6 in Product Display Per Page Dropdown List");
 		noteBooksPage.selectProductDisplayPerPageFromDropdown(dropdownVal);
@@ -165,8 +163,8 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 	@Test
 	public void TC07_Display_Nine_Products_Per_Page() {
 		
-		String dropdownVal = "9";
-		int numberPerPage = 9;
+		dropdownVal = "9";
+		numberPerPage = 9;
 		
 		log.info("TC07_Display_Nine_Products_Per_Page - Step 01 : Input 9 in Product Display Per Page Dropdown List");
 		noteBooksPage.selectProductDisplayPerPageFromDropdown(dropdownVal);
@@ -178,9 +176,9 @@ public class FE_05_Sort_Display_Paging extends AbstractTest {
 		verifyFalse(noteBooksPage.isPagingNotDisplayed());
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

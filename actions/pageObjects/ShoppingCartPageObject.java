@@ -44,7 +44,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToEditProductButton() {
-		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC, ShoppingCartPageUI.A_CONTAINS_TEXT_EDIT_PRODUCT);
+		waitForElementClickable(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC, ShoppingCartPageUI.A_CONTAINS_TEXT_EDIT_PRODUCT);
 		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC, ShoppingCartPageUI.A_CONTAINS_TEXT_EDIT_PRODUCT);
 	}
 
@@ -54,7 +54,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToUpdateShoppingCartButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_NAME_DYNAMIC, ShoppingCartPageUI.INPUT_NAME_UPDATE_SHOPPING_CART_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_NAME_DYNAMIC, ShoppingCartPageUI.INPUT_NAME_UPDATE_SHOPPING_CART_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_NAME_DYNAMIC, ShoppingCartPageUI.INPUT_NAME_UPDATE_SHOPPING_CART_BUTTON);
 	}
 	
@@ -88,7 +88,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToCheckOutButton() {
-		waitForElementVisible(ShoppingCartPageUI.SHOPPING_CART_CHECK_OUT_BUTTON);
+		waitForElementClickable(ShoppingCartPageUI.SHOPPING_CART_CHECK_OUT_BUTTON);
 		clickToElement(ShoppingCartPageUI.SHOPPING_CART_CHECK_OUT_BUTTON);
 	}
 	
@@ -123,7 +123,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToBillingAddressContinueButton() {
-		waitForElementVisible(ShoppingCartPageUI.CHECK_OUT_BILLING_ADDRESS_CONTINUE_BUTTON);
+		waitForElementClickable(ShoppingCartPageUI.CHECK_OUT_BILLING_ADDRESS_CONTINUE_BUTTON);
 		clickToElement(ShoppingCartPageUI.CHECK_OUT_BILLING_ADDRESS_CONTINUE_BUTTON);
 	}
 	
@@ -143,7 +143,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToShippingAddressContinueButton() {
-		waitForElementVisible(ShoppingCartPageUI.CHECK_OUT_SHIPPING_ADDRESS_CONTINUE_BUTTON);
+		waitForElementClickable(ShoppingCartPageUI.CHECK_OUT_SHIPPING_ADDRESS_CONTINUE_BUTTON);
 		clickToElement(ShoppingCartPageUI.CHECK_OUT_SHIPPING_ADDRESS_CONTINUE_BUTTON);
 	}
 	
@@ -153,12 +153,12 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToCheckOutShippingMethodNextDayAirRadioButton() {
-		waitForElementVisible(ShoppingCartPageUI.CHECK_OUT_SHIPPING_METHOD_NEXT_DAY_AIR_RADIO_BUTTON);
+		waitForElementClickable(ShoppingCartPageUI.CHECK_OUT_SHIPPING_METHOD_NEXT_DAY_AIR_RADIO_BUTTON);
 		clickToElement(ShoppingCartPageUI.CHECK_OUT_SHIPPING_METHOD_NEXT_DAY_AIR_RADIO_BUTTON);
 	}
 	
 	public void clickToCheckoutShippingMethodContinueButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_SHIPPING_METHOD_CONTINUE_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_SHIPPING_METHOD_CONTINUE_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_SHIPPING_METHOD_CONTINUE_BUTTON);
 	}
 
@@ -168,7 +168,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToCheckOutPaymentMethodCreditCardRadioButton() {
-		waitForElementVisible(ShoppingCartPageUI.CHECK_OUT_PAYMENT_METHOD_CREDIT_CARD_RADIO_BUTTON);
+		waitForElementClickable(ShoppingCartPageUI.CHECK_OUT_PAYMENT_METHOD_CREDIT_CARD_RADIO_BUTTON);
 		clickToElement(ShoppingCartPageUI.CHECK_OUT_PAYMENT_METHOD_CREDIT_CARD_RADIO_BUTTON);
 	}
 	
@@ -203,7 +203,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToCheckoutPaymentMethodContinueButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_PAYMENT_METHOD_CONTINUE_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_PAYMENT_METHOD_CONTINUE_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_PAYMENT_METHOD_CONTINUE_BUTTON);
 	}
 	
@@ -218,7 +218,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToSectionPaymentInfoContinueButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_SECTION_PAYMENT_INFO_CONTINUE_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_SECTION_PAYMENT_INFO_CONTINUE_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,ShoppingCartPageUI.INPUT_CLASS_CHECK_OUT_SECTION_PAYMENT_INFO_CONTINUE_BUTTON);
 	}
 	
@@ -338,7 +338,7 @@ public class ShoppingCartPageObject extends AbstractPage{
 	}
 	
 	public void clickToConfirmOrderConfirmButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC, ShoppingCartPageUI.INPUT_CLASS_CONFIRM_ORDER_INFO_CONFIRM_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC, ShoppingCartPageUI.INPUT_CLASS_CONFIRM_ORDER_INFO_CONFIRM_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC, ShoppingCartPageUI.INPUT_CLASS_CONFIRM_ORDER_INFO_CONFIRM_BUTTON);
 	}
 	

@@ -33,7 +33,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToRadioButton(String locatorName) {
-		waitForElementVisible(AbstactPageUI.SPAN_CLASS_DYNAMIC,locatorName);
+		waitForElementClickable(AbstactPageUI.SPAN_CLASS_DYNAMIC,locatorName);
 		clickToElement(AbstactPageUI.SPAN_CLASS_DYNAMIC,locatorName);
 	}
 
@@ -48,17 +48,17 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToCustomerInfoSaveButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_ID_DYNAMIC,MyAccountPageUI.INPUT_ID_SAVE_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_ID_DYNAMIC,MyAccountPageUI.INPUT_ID_SAVE_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_ID_DYNAMIC,MyAccountPageUI.INPUT_ID_SAVE_BUTTON);
 	}
 	
 	public void clickToAddressLink() {
-		waitForElementVisible(MyAccountPageUI.ADDRESS_LINKS);
+		waitForElementClickable(MyAccountPageUI.ADDRESS_LINKS);
 		clickToElement(MyAccountPageUI.ADDRESS_LINKS);
 	}
 	
 	public void clickToAddressAddNewButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_ADDRESS_ADD_NEW_ADDRESS_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_ADDRESS_ADD_NEW_ADDRESS_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_ADDRESS_ADD_NEW_ADDRESS_BUTTON);
 	}
 	
@@ -78,7 +78,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 
 	public void clickToAddressSaveButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_ADDRESS_SAVE_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_ADDRESS_SAVE_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_ADDRESS_SAVE_BUTTON);
 	}
 	
@@ -93,7 +93,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToChangePasswordLink() {
-		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,MyAccountPageUI.A_CONTAINS_TEXT_CHANGE_PASSWORD_LINK);
+		waitForElementClickable(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,MyAccountPageUI.A_CONTAINS_TEXT_CHANGE_PASSWORD_LINK);
 		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,MyAccountPageUI.A_CONTAINS_TEXT_CHANGE_PASSWORD_LINK);
 	}
 	
@@ -108,7 +108,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToChangePasswordButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_CHANGE_NEW_PASSWORD_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_CHANGE_NEW_PASSWORD_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_CHANGE_NEW_PASSWORD_BUTTON);
 		}
 	
@@ -118,7 +118,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToMyProductReviewLink() {
-		waitForElementVisible(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,MyAccountPageUI.A_CONTAINS_TEXT_MY_PRODUCT_REVIEW_LINK);
+		waitForElementClickable(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,MyAccountPageUI.A_CONTAINS_TEXT_MY_PRODUCT_REVIEW_LINK);
 		clickToElement(AbstactPageUI.A_CONTAINS_TEXT_DYNAMIC,MyAccountPageUI.A_CONTAINS_TEXT_MY_PRODUCT_REVIEW_LINK);
 	}
 	
@@ -143,7 +143,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToCustomerOrderLink() {
-		waitForElementVisible(MyAccountPageUI.CUSTOMER_ORDER_LINKS);
+		waitForElementClickable(MyAccountPageUI.CUSTOMER_ORDER_LINKS);
 		clickToElement(MyAccountPageUI.CUSTOMER_ORDER_LINKS);
 	}
 	
@@ -158,7 +158,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToOpenOrderDetail(String locatorName) {
-		waitForElementVisible(MyAccountPageUI.A_CONTAINS_TEXT_CUSTOMER_ORDER_DETAL_BUTTON_DYNAMIC,locatorName);
+		waitForElementClickable(MyAccountPageUI.A_CONTAINS_TEXT_CUSTOMER_ORDER_DETAL_BUTTON_DYNAMIC,locatorName);
 		clickToElement(MyAccountPageUI.A_CONTAINS_TEXT_CUSTOMER_ORDER_DETAL_BUTTON_DYNAMIC,locatorName);
 	}
 	
@@ -283,7 +283,7 @@ public class MyAccountPageObject extends AbstractPage {
 	}
 	
 	public void clickToCustomerOrderDetailReOrderButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_CUSTOMER_ORDER_DETAIL_REORDER_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_CUSTOMER_ORDER_DETAIL_REORDER_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,MyAccountPageUI.INPUT_CLASS_CUSTOMER_ORDER_DETAIL_REORDER_BUTTON);
 	}
 }

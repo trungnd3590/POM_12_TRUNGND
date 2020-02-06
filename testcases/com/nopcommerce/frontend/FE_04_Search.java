@@ -27,7 +27,8 @@ public class FE_04_Search extends AbstractTest {
 	private LoginPageObject loginPage;
 	private SearchPageObject searchPage;
 	
-	String emailVal,passVal;
+	private String emailVal,passVal,searchMinimumLengthMessage,dataNotExist,noResult,lenovoProducKeyWord,lenovoThinkpad,lenovoIdeaCentre,thinkPadProducKeyWord;
+	private String macBookProducKeyWord,categoryComputersVal,macBookPro,manufacturerHPVal,manufacturerAppleVal,minVal,maxVal;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -38,6 +39,26 @@ public class FE_04_Search extends AbstractTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
+		emailVal = "automationfc.vn@gmail.com";
+		passVal = "123456";
+		
+		lenovoProducKeyWord = "Lenovo";
+		thinkPadProducKeyWord = "Thinkpad X1 Carbon";
+		macBookProducKeyWord = "Apple MacBook Pro";
+		
+		dataNotExist = "MacBook Pro 2050";
+		lenovoThinkpad  = "Lenovo Thinkpad X1 Carbon Laptop";
+		lenovoIdeaCentre = "Lenovo IdeaCentre 600 All-in-One PC";
+		macBookPro  = "Apple MacBook Pro 13-inch";
+		
+		categoryComputersVal = "Computers";
+		
+		manufacturerHPVal = "HP";
+		manufacturerAppleVal = "Apple";
+		
+		noResult  = "No products were found that matched your criteria.";
+		searchMinimumLengthMessage = "Search term minimum length is 3 characters";
+		
 		String pageUrl = "https://demo.nopcommerce.com/";
 		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
@@ -45,10 +66,6 @@ public class FE_04_Search extends AbstractTest {
 
 	@Test
 	public void TC01_Search_With_Empty_Data() {
-		
-		emailVal = "auto01@gmail.com";
-		passVal = "123456";
-		String searchWarningMessage = "Search term minimum length is 3 characters";
 		
 		log.info("TC01_Search_With_Empty_Data - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
@@ -79,14 +96,11 @@ public class FE_04_Search extends AbstractTest {
 		searchPage.clickToSearchButton();
 		
 		log.info("TC01_Search_With_Empty_Data - Step 09 : Verify Warning Message is Displayed");
-		verifyEquals(searchWarningMessage, searchPage.getSearchWarningMesssageData());
+		verifyEquals(searchMinimumLengthMessage, searchPage.getSearchWarningMesssageData());
 	}
 	
 	@Test
 	public void TC02_Search_With_Data_Not_Exist() {
-		
-		String dataNotExist = "MacBook Pro 2050";
-		String noResult = "No products were found that matched your criteria.";
 		
 		log.info("TC02_Search_With_Data_Not_Exist - Step 01 : Input Data Not Exist in Search Field");
 		searchPage.inputToSearchTextbox(dataNotExist);
@@ -99,14 +113,10 @@ public class FE_04_Search extends AbstractTest {
 	}
 	
 	@Test
-	public void TC03_Search_With_Relative_Product_Name() throws Exception {
-		
-		String producKeyWord = "Lenovo";
-		String lenovoThinkpad  = "Lenovo Thinkpad X1 Carbon Laptop";
-		String lenovoIdeaCentre = "Lenovo IdeaCentre 600 All-in-One PC";
+	public void TC03_Search_With_Relative_Product_Name() {
 		
 		log.info("TC03_Search_With_Relative_Product_Name - Step 01 : Input Data with Relative Product in Search Field");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(lenovoProducKeyWord);
 		
 		log.info("TC03_Search_With_Relative_Product_Name - Step 02 : Click to Search Button");
 		searchPage.clickToSearchButton();
@@ -123,10 +133,8 @@ public class FE_04_Search extends AbstractTest {
 	@Test
 	public void TC04_Search_With_Absolute_ProductName() {
 		
-		String producKeyWord = "Thinkpad X1 Carbon";
-		
 		log.info("TC04_Search_With_Absolute_ProductName - Step 01 : Input Data with Absolute Product in Search Field");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(thinkPadProducKeyWord);
 		
 		log.info("TC04_Search_With_Absolute_ProductName - Step 02 : Click to Search Button");
 		searchPage.clickToSearchButton();
@@ -136,19 +144,15 @@ public class FE_04_Search extends AbstractTest {
 		
 		log.info("TC04_Search_With_Absolute_ProductName - Step 04 : Verify Number of Item and Name is match with search Data");
 		verifyEquals(1, searchPage.countNumberOfItems());
-		verifyTrue(searchPage.isSearchItemNameDisplayed(producKeyWord));
+		verifyTrue(searchPage.isSearchItemNameDisplayed(thinkPadProducKeyWord));
 	
 	}
 	
 	@Test
 	public void TC05_Advance_Search_With_Parent_Categogies() {
 		
-		String producKeyWord = "Apple MacBook Pro";
-		String itemVal = "Computers";
-		String noResult = "No products were found that matched your criteria.";
-		
 		log.info("TC05_Advance_Search_With_Parent_Categogies - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC05_Advance_Search_With_Parent_Categogies - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -157,7 +161,7 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC05_Advance_Search_With_Parent_Categogies - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(itemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC05_Advance_Search_With_Parent_Categogies - Step 05 : Click to Search Button");
 		searchPage.clickToSearchButton();
@@ -170,12 +174,8 @@ public class FE_04_Search extends AbstractTest {
 	@Test
 	public void TC06_Advance_Search_With_Sub_Categories() {
 		
-		String producKeyWord = "Apple MacBook Pro";
-		String macBookPro  = "Apple MacBook Pro 13-inch";
-		String itemVal = "Computers";
-		
 		log.info("TC06_Advance_Search_With_Sub_Categories - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC06_Advance_Search_With_Sub_Categories - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -184,7 +184,7 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC06_Advance_Search_With_Sub_Categories - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(itemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC06_Advance_Search_With_Sub_Categories - Step 05 : Click to Advance Search Sub Category Check box");
 		searchPage.clickToAdvanceSearchSubCategoryCheckbox();
@@ -203,13 +203,8 @@ public class FE_04_Search extends AbstractTest {
 	@Test
 	public void TC07_Advance_Search_With_Incorrect_Manufacturer() {
 		
-		String producKeyWord = "Apple MacBook Pro";
-		String categoryItemVal = "Computers";
-		String manufacturerItemVal = "HP";
-		String noResult = "No products were found that matched your criteria.";
-		
 		log.info("TC07_Advance_Search_With_Incorrect_Manufacturer - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC07_Advance_Search_With_Incorrect_Manufacturer - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -218,13 +213,13 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC07_Advance_Search_With_Incorrect_Manufacturer - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(categoryItemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC07_Advance_Search_With_Incorrect_Manufacturer - Step 05 : Click to Advance Search Sub Category Check box");
 		searchPage.clickToAdvanceSearchSubCategoryCheckbox();
 		
 		log.info("TC07_Advance_Search_With_Incorrect_Manufacturer - Step 06 : Select Item from  Manufacture Dropdown List");
-		searchPage.selectItemFromManufacturerDropdown(manufacturerItemVal);
+		searchPage.selectItemFromManufacturerDropdown(manufacturerHPVal);
 		
 		log.info("TC07_Advance_Search_With_Incorrect_Manufacturer - Step 07 : Click to Search Button");
 		searchPage.clickToSearchButton();
@@ -235,14 +230,9 @@ public class FE_04_Search extends AbstractTest {
 	
 	@Test
 	public void TC08_Advance_Search_With_Correct_Manufacturer() {
-		
-		String producKeyWord = "Apple MacBook Pro";
-		String macBookPro  = "Apple MacBook Pro 13-inch";
-		String categoryItemVal = "Computers";
-		String manufacturerItemVal = "Apple";
 	
 		log.info("TC08_Advance_Search_With_Correct_Manufacturer - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC08_Advance_Search_With_Correct_Manufacturer - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -251,13 +241,13 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC08_Advance_Search_With_Correct_Manufacturer - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(categoryItemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC08_Advance_Search_With_Correct_Manufacturer - Step 05 : Click to Advance Search Sub Category Check box");
 		searchPage.clickToAdvanceSearchSubCategoryCheckbox();
 		
 		log.info("TC08_Advance_Search_With_Correct_Manufacturer - Step 06 : Select Item from  Manufacture Dropdown List");
-		searchPage.selectItemFromManufacturerDropdown(manufacturerItemVal);
+		searchPage.selectItemFromManufacturerDropdown(manufacturerAppleVal);
 		
 		log.info("TC08_Advance_Search_With_Correct_Manufacturer - Step 07 : Click to Search Button");
 		searchPage.clickToSearchButton();
@@ -273,15 +263,11 @@ public class FE_04_Search extends AbstractTest {
 	@Test
 	public void TC09_Advance_Search_With_Price_Range() {
 		
-		String producKeyWord = "Apple MacBook Pro";
-		String macBookPro  = "Apple MacBook Pro 13-inch";
-		String categoryItemVal = "Computers";
-		String manufacturerItemVal = "Apple";
-		String minVal = "1000";
-		String maxVal = "2000";
+		minVal = "1000";
+		maxVal = "2000";
 	
 		log.info("TC09_Advance_Search_With_Price_Range - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC09_Advance_Search_With_Price_Range - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -290,13 +276,13 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC09_Advance_Search_With_Price_Range - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(categoryItemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC09_Advance_Search_With_Price_Range - Step 05 : Click to Advance Search Sub Category Check box");
 		searchPage.clickToAdvanceSearchSubCategoryCheckbox();
 		
 		log.info("TC09_Advance_Search_With_Price_Range - Step 06 : Select Item from  Manufacture Dropdown List");
-		searchPage.selectItemFromManufacturerDropdown(manufacturerItemVal);
+		searchPage.selectItemFromManufacturerDropdown(manufacturerAppleVal);
 		
 		log.info("TC09_Advance_Search_With_Price_Range - Step 07 : Input Price in Ranger Min - Max Text Box");
 		searchPage.inputToMinimumPriceRangeTextbox(minVal);
@@ -316,15 +302,12 @@ public class FE_04_Search extends AbstractTest {
 	@Test
 	public void TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price() {
 		
-		String producKeyWord = "Apple MacBook Pro";
-		String categoryItemVal = "Computers";
-		String manufacturerItemVal = "Apple";
-		String minVal = "1000";
-		String maxVal = "1700";
-		String noResult = "No products were found that matched your criteria.";
+		minVal = "1000";
+		maxVal = "1700";
+		noResult = "No products were found that matched your criteria.";
 	
 		log.info("TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -333,13 +316,13 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(categoryItemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price - Step 05 : Click to Advance Search Sub Category Check box");
 		searchPage.clickToAdvanceSearchSubCategoryCheckbox();
 		
 		log.info("TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price - Step 06 : Select Item from  Manufacture Dropdown List");
-		searchPage.selectItemFromManufacturerDropdown(manufacturerItemVal);
+		searchPage.selectItemFromManufacturerDropdown(manufacturerAppleVal);
 		
 		log.info("TC10_Advance_Search_With_Max_Price_Range_Lower_Than_Product_Price - Step 07 : Input Price in Ranger Min - Max Text Box");
 		searchPage.inputToMinimumPriceRangeTextbox(minVal);
@@ -354,16 +337,12 @@ public class FE_04_Search extends AbstractTest {
 	
 	@Test
 	public void TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price() {
-		
-		String producKeyWord = "Apple MacBook Pro";
-		String categoryItemVal = "Computers";
-		String manufacturerItemVal = "Apple";
-		String minVal = "1900";
-		String maxVal = "5000";
-		String noResult = "No products were found that matched your criteria.";
+
+		minVal = "1900";
+		maxVal = "5000";
 	
 		log.info("TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price - Step 01 : Input Data in Advance Search");
-		searchPage.inputToSearchTextbox(producKeyWord);
+		searchPage.inputToSearchTextbox(macBookProducKeyWord);
 		
 		log.info("TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price - Step 02 : Click to Advance Search Check box");
 		searchPage.clickToAdvanceSearchCheckbox();
@@ -372,13 +351,13 @@ public class FE_04_Search extends AbstractTest {
 		verifyTrue(searchPage.isSearchAdvanceFormDisplayed());
 		
 		log.info("TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price - Step 04 : Select Item from Category Dropdown List");
-		searchPage.selectItemFromCategoryDropdown(categoryItemVal);
+		searchPage.selectItemFromCategoryDropdown(categoryComputersVal);
 		
 		log.info("TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price - Step 05 : Click to Advance Search Sub Category Check box");
 		searchPage.clickToAdvanceSearchSubCategoryCheckbox();
 		
 		log.info("TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price - Step 06 : Select Item from  Manufacture Dropdown List");
-		searchPage.selectItemFromManufacturerDropdown(manufacturerItemVal);
+		searchPage.selectItemFromManufacturerDropdown(manufacturerAppleVal);
 		
 		log.info("TC11_Advance_Search_With_Min_Price_Range_Lower_Than_Product_Price - Step 07 : Input Price in Ranger Min - Max Text Box");
 		searchPage.inputToMinimumPriceRangeTextbox(minVal);
@@ -391,9 +370,9 @@ public class FE_04_Search extends AbstractTest {
 		verifyEquals(noResult, searchPage.getSearchNoResultMesssageData());
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

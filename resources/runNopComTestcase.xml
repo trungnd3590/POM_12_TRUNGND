@@ -5,15 +5,19 @@
 	<listener class-name = "commons.MethodListener"/>
 	<!--<listener class-name = "reportConfig.ExtentReportListenerv2"/>-->
 	<listener class-name = "reportConfig.ExtentReportListenerv4"/>
-	<listener class-name = "org.uncommons.reportng.HTMLReporter"/>
-	<listener class-name = "org.uncommons.reportng.JunitXMLReporter"/>
+	<listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
 </listeners>
 
 	<test name="Run on FIREFOX UI">
 		<parameter name="browser" value="firefox_ui" />
 		<classes>
-			<class
-				name="com.nopcommerce.frontend.FE_07_Orders" />
+			<!-- <class name="com.nopcommerce.frontend.FE_01_Register" />
+			<class name="com.nopcommerce.frontend.FE_02_Login" />
+			<class name="com.nopcommerce.frontend.FE_03_MyAccount" />
+			<class name="com.nopcommerce.frontend.FE_04_Search" />
+			<class name="com.nopcommerce.frontend.FE_05_Sort_Display_Paging" /> -->
+			<class name="com.nopcommerce.frontend.FE_06_WishList_Compare_RecentView" />
 		</classes>
 	</test>
 <!-- 

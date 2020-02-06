@@ -22,7 +22,9 @@ import org.testng.annotations.AfterClass;
 public class FE_01_Register extends AbstractTest {
 
 	private WebDriver driver;
-	String firstNameVal, lastNameVal, dateOfBirthVal, dateOfMonthVal, dateOfYearVal, emailVal, companyNameVal, passVal;
+	private String firstNameVal, lastNameVal, dateOfBirthVal, dateOfMonthVal, dateOfYearVal, emailVal, companyNameVal, passVal,confirmPassVal;
+	private String emptyFirstNameErrMess,emptyLastNameErrMess,emptyEmailErrMess,emptyPassErrMess,wrongEmailErrMess,existEmailErrMess;
+	private String passwordRuleMessage,passwordLessThan6CharacterErrorMessage,confirmPassErrMess;
 
 	private DriverManager driverManager;
 	private HomePageObject homePage;
@@ -37,6 +39,16 @@ public class FE_01_Register extends AbstractTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
+		emptyFirstNameErrMess = "First name is required.";
+		emptyLastNameErrMess = "Last name is required.";
+		emptyEmailErrMess = "Email is required.";
+		emptyPassErrMess = "Password is required.";
+		wrongEmailErrMess = "Wrong email";
+		existEmailErrMess = "The specified email already exists";
+		passwordRuleMessage = "Password must meet the following rules:";
+		passwordLessThan6CharacterErrorMessage = "must have at least 6 characters";
+		confirmPassErrMess = "The password and confirmation password do not match.";
+		
 		String pageUrl = "https://demo.nopcommerce.com/";
 		log.info("Pre-Condition 01 : Open Page Url " + pageUrl);
 		driver.get(pageUrl);
@@ -50,10 +62,6 @@ public class FE_01_Register extends AbstractTest {
 		emailVal = "";
 		companyNameVal = "";
 		passVal = "";
-		String firstNameErrMess = "First name is required.";
-		String lastNameErrMess = "Last name is required.";
-		String emailErrMess = "Email is required.";
-		String passErrMess = "Password is required.";
 
 		log.info("TC01_Register_With_Empty_Data - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
@@ -77,11 +85,11 @@ public class FE_01_Register extends AbstractTest {
 		registerPage.clickToRegisterButton();
 
 		log.info("TC01_Register_With_Empty_Data - Step 06 : Verify Error Mesages in Required Fields");
-		verifyEquals(firstNameErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_FIRSTNAME_TEXTBOX_MESSAGE));
-		verifyEquals(lastNameErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_LASTNAME_TEXTBOX_MESSAGE));
-		verifyEquals(emailErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_EMAIL_TEXTBOX_MESSAGE));
-		verifyEquals(passErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_PASSWORD_TEXTBOX_MESSAGE));
-		verifyEquals(passErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_CONFIRM_PASSWORD_TEXTBOX_MESSAGE));
+		verifyEquals(emptyFirstNameErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_FIRSTNAME_TEXTBOX_MESSAGE));
+		verifyEquals(emptyLastNameErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_LASTNAME_TEXTBOX_MESSAGE));
+		verifyEquals(emptyEmailErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_EMAIL_TEXTBOX_MESSAGE));
+		verifyEquals(emptyPassErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_PASSWORD_TEXTBOX_MESSAGE));
+		verifyEquals(emptyPassErrMess, registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_CONFIRM_PASSWORD_TEXTBOX_MESSAGE));
 	}
 
 	@Test
@@ -95,7 +103,6 @@ public class FE_01_Register extends AbstractTest {
 		emailVal = "john_wickgmail.com";
 		companyNameVal = "John Wick Entertainment";
 		passVal = "123456";
-		String emailErrMess = "Wrong email";
 
 		log.info("TC02_Register_With_Invalid_Email - Step 01 : Register Account with Invalid Email");
 		registerPage.clickToRadioButton(RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
@@ -110,7 +117,7 @@ public class FE_01_Register extends AbstractTest {
 		registerPage.clickToRegisterButton();
 
 		log.info("TC02_Register_With_Invalid_Email - Step 03 : Verify Error Message in Email Field ");
-		verifyEquals(emailErrMess,
+		verifyEquals(wrongEmailErrMess,
 				registerPage.getErrorMessageFromField(RegisterPageUI.SPAN_ID_EMAIL_TEXTBOX_MESSAGE));
 
 	}
@@ -127,7 +134,6 @@ public class FE_01_Register extends AbstractTest {
 		emailVal = "automationfc.vn@gmail.com";
 		companyNameVal = "John Wick Entertainment";
 		passVal = "123456";
-		String emailErrMess = "The specified email already exists";
 
 		log.info("TC03_Register_With_Exist_Email - Step 01 : Register Account with Exist Email");
 		registerPage.clickToRadioButton(RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
@@ -145,7 +151,7 @@ public class FE_01_Register extends AbstractTest {
 		registerPage.clickToRegisterButton();
 
 		log.info("TC03_Register_With_Exist_Email - Step 03 : Verify Error Mesage in Email Field");
-		verifyEquals(emailErrMess, registerPage.getExistEmailErrorMessage());
+		verifyEquals(existEmailErrMess, registerPage.getExistEmailErrorMessage());
 
 	}
 
@@ -161,8 +167,6 @@ public class FE_01_Register extends AbstractTest {
 		emailVal = "automationfc.vn@gmail.com";
 		companyNameVal = "John Wick Entertainment";
 		passVal = "12345";
-		String passwordRuleMessage = "Password must meet the following rules:";
-		String passwordLessThan6CharacterErrorMessage = "must have at least 6 characters";
 
 		log.info("TC04_Register_With_Password_Less_Than_Six_Character - Step 01 : Register Account with Password Less Than Six Character");
 		registerPage.clickToRadioButton(RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
@@ -198,8 +202,7 @@ public class FE_01_Register extends AbstractTest {
 		emailVal = "john_wick_" + randomNumber() + "@gmail.com";
 		companyNameVal = "John Wick Entertainment";
 		passVal = "123456";
-		String confirmPassVal = "12345";
-		String confirmPassErrMess = "The password and confirmation password do not match.";
+		confirmPassVal = "12345";
 
 		log.info("TC05_Register_With_Confirm_Password_Does_Not_Match - Step 01 : Register Account with Confirm Password Does Not Match");
 		registerPage.clickToRadioButton(RegisterPageUI.INPUT_ID_GENDER_MALE_RADIOBUTTON);
@@ -255,9 +258,9 @@ public class FE_01_Register extends AbstractTest {
 		 
 	}
 	
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

@@ -54,7 +54,7 @@ public class ProductComparePageObject extends AbstractPage{
 	}
 	
 	public void clickToClearListButton() {
-		waitForElementVisible(AbstactPageUI.A_CLASS_DYNAMIC,ProductComparePageUI.A_CLASS_PRODUCT_COMPARE_CLEAR_LIST_BUTTON);
+		waitForElementClickable(AbstactPageUI.A_CLASS_DYNAMIC,ProductComparePageUI.A_CLASS_PRODUCT_COMPARE_CLEAR_LIST_BUTTON);
 		clickToElement(AbstactPageUI.A_CLASS_DYNAMIC,ProductComparePageUI.A_CLASS_PRODUCT_COMPARE_CLEAR_LIST_BUTTON);
 	}
 	

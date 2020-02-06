@@ -21,7 +21,7 @@ import org.testng.annotations.AfterClass;
 public class FE_02_Login extends AbstractTest {
 
 	private WebDriver driver;
-	String emailVal,passwordVal;
+	private String emailVal,passwordVal,emailErrMessage;
 	
 	private DriverManager driverManager;
 	private HomePageObject homePage;
@@ -46,7 +46,7 @@ public class FE_02_Login extends AbstractTest {
 
 		emailVal = "";
 		passwordVal = "";
-		String emailErrMessage = "Please enter your email";
+		emailErrMessage = "Please enter your email";
 		
 		log.info("TC01_Login_With_Empty_Data - Step 01 : Init HomePage");
 		homePage = PageGeneratorManager.getHomePage(driver);
@@ -72,7 +72,7 @@ public class FE_02_Login extends AbstractTest {
 
 		emailVal = "dfsdfsd@adfdasd";
 		passwordVal = "123456";
-		String emailErrMessage = "Wrong email";
+		emailErrMessage = "Wrong email";
 		
 		log.info("TC02_Login_With_Invalid_Email - Step 01 : Login account With Invalid Email");
 		loginPage.inputToEmailTextbox(emailVal);
@@ -90,7 +90,7 @@ public class FE_02_Login extends AbstractTest {
 
 		emailVal = "auto01@gmail.com";
 		passwordVal = "123456";
-		String emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
+		emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
 				"No customer account found";
 		
 		log.info("TC03_Login_With_Unregisted_Email - Step 01 : Login account With Unregisted Email");
@@ -110,7 +110,7 @@ public class FE_02_Login extends AbstractTest {
 		
 		emailVal = "automationfc.vn@gmail.com";
 		passwordVal = "";
-		String emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
+		emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
 				"The credentials provided are incorrect";
 		
 		log.info("TC04_Login_With_Empty_Password - Step 01 : Login account With Empty Password");
@@ -130,7 +130,7 @@ public class FE_02_Login extends AbstractTest {
 
 		emailVal = "automationfc.vn@gmail.com";
 		passwordVal = "1234567";
-		String emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
+		emailErrMessage = "Login was unsuccessful. Please correct the errors and try again.\n" + 
 				"The credentials provided are incorrect";
 		
 		log.info("TC05_Login_With_Wrong_Password - Step 01 : Login account With Wrong Password");
@@ -148,7 +148,7 @@ public class FE_02_Login extends AbstractTest {
 	@Test
 	public void TC06_Login_To_System() {
 
-		emailVal = "auto@gmail.com";
+		emailVal = "automationfc.vn@gmail.com";
 		passwordVal = "123456";
 	
 		log.info("TC06_Login_To_System - Step 01 : Login account With Valid Data");
@@ -164,9 +164,9 @@ public class FE_02_Login extends AbstractTest {
 	}
 
 	
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driverManager.quitDriver();
+		closeBrowserAndDriver(driver);
 	}
 
 }

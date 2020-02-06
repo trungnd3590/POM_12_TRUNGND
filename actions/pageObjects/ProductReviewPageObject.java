@@ -34,7 +34,7 @@ public class ProductReviewPageObject extends AbstractPage{
 	}
 	
 	public void clickToSubmitReviewButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_NAME_DYNAMIC,ProductReviewPageUI.INPUT_NAME_PRODUCT_REVIEW_SUBMIT_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_NAME_DYNAMIC,ProductReviewPageUI.INPUT_NAME_PRODUCT_REVIEW_SUBMIT_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_NAME_DYNAMIC,ProductReviewPageUI.INPUT_NAME_PRODUCT_REVIEW_SUBMIT_BUTTON);
 	}
 	

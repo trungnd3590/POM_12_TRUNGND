@@ -59,7 +59,7 @@ public class SearchPageObject extends AbstractPage{
 	}
 	
 	public void clickToSearchButton() {
-		waitForElementVisible(AbstactPageUI.INPUT_CLASS_DYNAMIC,SearchPageUI.INPUT_CLASS_SEARCH_BUTTON);
+		waitForElementClickable(AbstactPageUI.INPUT_CLASS_DYNAMIC,SearchPageUI.INPUT_CLASS_SEARCH_BUTTON);
 		clickToElement(AbstactPageUI.INPUT_CLASS_DYNAMIC,SearchPageUI.INPUT_CLASS_SEARCH_BUTTON);
 	}
 	

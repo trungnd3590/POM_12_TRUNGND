@@ -4,6 +4,7 @@ public class AbstactPageUI {
 
 	public static final String HOME_PAGE_LOGO = "//div[@class='header-logo']//a//img";
 	public static final String SHOPPING_CART_HEADER_ATTRIBUTES = "//div[@class='mini-shopping-cart']//div[@class='attributes']";
+	public static final String ADMIN_FORM_TITLE = "//h1[@class='pull-left']";
 	
 	public static final String A_CLASS_DYNAMIC = "//a[@class='%s']";
 	public static final String A_CONTAINS_TEXT_DYNAMIC =  "//a[contains(text(),'%s')]";
